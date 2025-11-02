@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathan Inc. - Réservation</title>
+    
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="page-accueil">
+        <header class="main-header">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Nathan Inc. Logo">
+                <span>Nathan Inc.</span>
+            </div>
+            <nav>
+                <span id="nav-services-1">Services</span>
+                <span id="nav-voyages-1">Nos Voyages</span>
+                <span id="nav-contact-1">Contact</span>
+            </nav>
+        </header>
+
+        <main class="hero-container">
+            <h1>Voyagez au cœur de l'exceptionnel.</h1>
+            <form id="booking-form" class="booking-form">
+                <div class="form-group">
+                    <label for="depart">Gare de départ</label>
+                    <input type="text" id="depart" value="Bordeaux" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="arrivee">Gare d'arrivée</label>
+                    <input type="text" id="arrivee" value="L'Évasion" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="date-depart">Date de départ</label>
+                    <input type="text" id="date-depart" value="15/11/2025" disabled>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date-retour">Date de retour</label>
+                    <input type="text" id="date-retour" value="16/11/2025" disabled>
+                </div>
+
+                <button type="submit" id="consult-button" class="cta-button">Consulter ma réservation</button>
+            </form>
+        </main>
+    </div>
+
+    <div id="login-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2>Accéder à votre réservation</h2>
+            <p>Veuillez saisir votre référence de dossier voyageur pour continuer.</p>
+            <form id="login-form">
+                <label for="dossier-ref">RÉFÉRENCE DE DOSSIER :</label>
+                <input type="password" id="dossier-ref" autocomplete="off" autofocus>
+                <button type="submit" class="cta-button">Charger le dossier</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+    
+    <div id="page-reservation" style="display: none;">
+        
+        <header class="main-header">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Nathan Inc. Logo">
+                <span>Nathan Inc.</span>
+            </div>
+            <nav>
+                <span id="nav-services-2">Services</span>
+                <span id="nav-voyages-2">Nos Voyages</span>
+                <span id="nav-contact-2">Contact</span>
+            </nav>
+        </header>
+        
+        <main class="reservation-container">
+            <div class="reservation-header">
+                <h1>Votre Voyage</h1>
+                <span class="status-badge confirmed">STATUT CONFIRMÉ</span>
+            </div>
+        
+            <div class="passenger-info">
+                <div class="info-block">
+                    <strong>Passager</strong>
+                    <span id="passenger-name"></span>
+                </div>
+                <div class="info-block">
+                    <strong>Référence</strong>
+                    <span>LCO-PEPITO-25</span>
+                </div>
+                <div class="info-block">
+                    <strong>Chef de Bord</strong>
+                    <span id="chef-de-bord"></span>
+                </div>
+            </div>
+
+            <div class="reservation-body-grid">
+                
+                <div class="main-content-column">
+                    <section id="notification-section" class="service-bulletin">
+                        <h2>// Bulletin de service</h2>
+                        <div id="notification-list"></div>
+                    </section>
+                
+                    <section class="briefing-section">
+                        <h2>// Informations pratiques voyageur</h2>
+                        <div class="info-grid">
+                            <article class="info-card">
+                                <h3>Samedi : Service de restauration</h3>
+                                <p id="briefing-samedi"></p>
+                            </article>
+                            <article class="info-card">
+                                <h3>Dimanche : Excursion</h3>
+                                <p id="briefing-dimanche"></p>
+                            </article>
+                        </div>
+                    </section>
+                
+                    <section id="phase-1-locked" class="locked-section">
+                        <h2>// Votre carnet de voyage</h2>
+                        <div class="locked-content">
+                            <div id="admin-bypass" class="lock-icon" aria-hidden="true" title="Accès Chef de Bord">🔒</div>
+                            <h3>Départ dans :</h3>
+                            <div id="countdown" class="countdown-timer">
+                                <div class="timer-unit"><span id="days">00</span><label>Jours</label></div>
+                                <div class="timer-unit"><span id="hours">00</span><label>Heures</label></div>
+                                <div class="timer-unit"><span id="minutes">00</span><label>Min</label></div>
+                                <div class="timer-unit"><span id="seconds">00</span><label>Sec</label></div>
+                            </div>
+                            <p id="locked-message" class="locked-message"></p>
+                        </div>
+                    </section>
+                    
+                    <section id="phase-2-content" style="display: none;">
+                        <div class="status-badge active-trip">VOYAGE EN COURS</div>
+                        
+                        <section class="jukebox-section">
+                            <h2 id="jukebox-title"></h2>
+                            <p id="jukebox-desc"></p>
+                        </section>
+                        
+                        <section class="billets-section">
+                            <h2 id="billets-title"></h2>
+                            <p id="billets-desc" class="section-description"></p>
+                            
+                            <article class="billet-card" id="billet-1">
+                                <div class="billet-header">
+                                    <span class="billet-icon">🎟️</span>
+                                    <h3 id="billet-1-title"></h3>
+                                </div>
+                                <div class="billet-body">
+                                    <div class="billet-info">
+                                        <strong>Trajet</strong>
+                                        <span id="billet-1-trajet"></span>
+                                    </div>
+                                    <div class="billet-info">
+                                        <strong>Motif</strong>
+                                        <span id="billet-1-motif"></span>
+                                    </div>
+                                </div>
+                                <div class="billet-narrative" id="billet-1-recit" style="display: none;"></div>
+                                <div class="billet-cta">
+                                    <button id="composter-1" class="cta-button billet-button">Composter le billet</button>
+                                </div>
+                            </article>
+                            
+                            <article class="billet-card" id="billet-2" style="display:none;">
+                                <div class="billet-header">
+                                    <span class="billet-icon">🎟️</span>
+                                    <h3 id="billet-2-title"></h3>
+                                </div>
+                                <div class="billet-body">
+                                    <div class="billet-info">
+                                        <strong>Trajet</strong>
+                                        <span id="billet-2-trajet"></span>
+                                    </div>
+                                    <div class="billet-info">
+                                        <strong>Motif</strong>
+                                        <span id="billet-2-motif"></span>
+                                    </div>
+                                </div>
+                                <div class="billet-narrative" id="billet-2-recit" style="display: none;"></div>
+                                <div class="billet-cta">
+                                    <button id="composter-2" class="cta-button billet-button">Composter le billet</button>
+                                </div>
+                            </article>
+                            
+                            <article class="billet-card" id="billet-3" style="display:none;">
+                                <div class="billet-header">
+                                    <span class="billet-icon">🎟️</span>
+                                    <h3 id="billet-3-title"></h3>
+                                </div>
+                                <div class="billet-body">
+                                    <div class="billet-info">
+                                        <strong>Trajet</strong>
+                                        <span id="billet-3-trajet"></span>
+                                    </div>
+                                    <div class="billet-info">
+                                        <strong>Motif</strong>
+                                        <span id="billet-3-motif"></span>
+                                    </div>
+                                </div>
+                                <div class="billet-narrative" id="billet-3-recit" style="display: none;"></div>
+                                <div class="billet-cta">
+                                    <button id="composter-3" class="cta-button billet-button">Composter le billet</button>
+                                </div>
+                            </article>
+                            
+                            <article class="billet-card" id="billet-4" style="display:none;">
+                                <div class="billet-header">
+                                    <span class="billet-icon">🎟️</span>
+                                    <h3 id="billet-4-title"></h3>
+                                </div>
+                                <div class="billet-body">
+                                    <div class="billet-info">
+                                        <strong>Trajet</strong>
+                                        <span id="billet-4-trajet"></span>
+                                    </div>
+                                    <div class="billet-info">
+                                        <strong>Motif</strong>
+                                        <span id="billet-4-motif"></span>
+                                    </div>
+                                </div>
+                                <div class="billet-narrative" id="billet-4-recit" style="display: none;"></div>
+                                <div class="billet-cta">
+                                    <button id="composter-4" class="cta-button billet-button">Composter le billet</button>
+                                </div>
+                            </article>
+
+                        </section>
+                    </section>
+                </div>
+                
+                <div class="sidebar-column">
+                    <section class="weather-section">
+                        <h2>// Météo sur place</h2>
+                        <div class="simple-weather-widget">
+                            <div class="weather-icon">🌦️</div>
+                            <div class="weather-details">
+                                <div class="weather-temp">13°C</div>
+                                <div class="weather-desc">Averses éparses</div>
+                                <div class="weather-feels">Ressenti 11°C</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                
+            </div> </main>
+    </div>
+
+    <div id="page-phase-3" style="display: none;">
+        <header class="main-header">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Nathan Inc. Logo">
+                <span>Nathan Inc.</span>
+            </div>
+            <nav>
+                <span id="nav-services-3">Services</span>
+                <span id="nav-voyages-3">Nos Voyages</span>
+                <span id="nav-contact-3">Contact</span>
+            </nav>
+        </header>
+        
+        <main class="reservation-container">
+            <div class="reservation-header">
+                <h1 id="archive-title"></h1>
+                <span class="status-badge archived">VOYAGE ARCHIVÉ</span>
+            </div>
+            
+            <section class="gallery-section">
+                <h2 id="gallery-title"></h2>
+                <p id="gallery-desc"></p>
+            </section>
+            
+            <section class="guestbook-section">
+                <h2 id="guestbook-title"></h2>
+                <p id="guestbook-desc"></p>
+            </section>
+        </main>
+    </div>
+    
+    <div id="easter-egg-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h2 id="easter-egg-title">Information</h2>
+            <p id="easter-egg-message"></p>
+            <button id="close-easter-egg" class="cta-button">Fermer</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
