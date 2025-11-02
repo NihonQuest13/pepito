@@ -10,18 +10,20 @@ const SITE_CONTENT = {
     passengerName: 'M. Enzo Pépito Soum',
     chefDeBord: 'Nathan Grondin',
     
-    // NOUVEAU: Infos de voyage pour l'en-tête
     infoDepart: "Bordeaux (Le Lac)",
-    infoArrivee: "???", // MIS À JOUR
+    infoArrivee: "???", 
     infoHeures: "15/11 (11:00) - 16/11 (19:00)",
 
-    // NOUVEAU: Contenu de la promo Sidebar
     promoTitle: "Envie de plannifier votre prochain voyage ?",
     promoDesc: "Nous vous proposons une réduction exclusive de 15% sur notre prochain voyage pour Colmar avec le code PEPITO15. Valable jusqu'au 31/11/2025.",
 
+    // DATES DE RÉVÉLATION DES BRIEFINGS
+    briefingRevealDate_Logement: '2025-11-05T09:00:00', // Correspond à NOTIF_001
+    briefingRevealDate_Nourriture: '2025-11-14T09:00:00', // Correspond à NOTIF_004
+
     notifications: [
         { 
-            id: 'NOTIF_000', // EMAIL 1 (Manuel) - CORPS MIS À JOUR
+            id: 'NOTIF_000', // EMAIL 1 (Manuel)
             revealTimestamp: '2025-11-01T08:00:00', // (Date passée pour affichage immédiat)
             icon: "🔑", 
             siteMessage: "Bienvenue sur votre portail de voyage, M. Pépito Soum. \nToutes les informations concernant votre voyage se trouvent ici.",
@@ -29,18 +31,18 @@ const SITE_CONTENT = {
             emailBody: `Bonjour M. Pépito,\n\nPour votre prochain voyage du 15 et 16 novembre 2025, nous avons le plaisir de vous annoncer l'activation de votre portail de voyage personnel et sécurisé.\n\nCe portail sera désormais notre unique canal de communication pour toutes les mises à jour logistiques, les briefings d'équipement et les services expérientiels liés à votre dossier.\n\nVeuillez trouver vos identifiants de connexion ci-dessous :\n\nLe portail de voyage : ouvrir ce lien.\nVotre référence de dossier : PEPITO (pour consulter votre réservation)\n\nNous vous invitons à vous connecter une première fois pour confirmer l'accès.\n\nCordialement,\n\nNathan Inc. Services Premium\nGRONDIN Nathan - Chef de Bord\n+33770136289 | nathangrondin683@gmail.com`
         },
         { 
-            id: 'NOTIF_001', // EMAIL 2
+            id: 'NOTIF_001', // EMAIL 2 (MIS À JOUR)
             revealTimestamp: '2025-11-05T09:00:00', 
-            icon: "✅", 
-            siteMessage: "Mise à jour de statut : la Phase 1 (Planification) se déroule comme prévu.",
-            emailSubject: "Mise à jour de Statut (Dossier PEPITO)",
-            emailBody: `Bonjour M. Pépito,\n\nCeci est une note de service de "Nathan Inc.".\n\nNous vous confirmons que la Phase 1 (Planification) de votre voyage des 15-16 Novembre se déroule comme prévu. Tous les indicateurs de notre service logistique sont au vert.\n\nDe nouvelles informations seront publiées sur votre portail en temps voulu.\n\nCordialement,\nNathan Inc. Services Premium\n+33770136289 | nathangrondin683@gmail.com`
+            icon: "🏠", // Icône changée
+            siteMessage: "Votre demande de logement a été confirmée. De nouvelles indications sur l'équipement ont été ajoutées (cf. Rubrique 'Samedi').",
+            emailSubject: "(Dossier PEPITO) - Confirmation logement",
+            emailBody: `Bonjour M. Pépito,\n\nCeci est une note de service de Nathan Inc.\n\nNous vous confirmons que votre demande de logement auprès de notre prestataire a été confirmée. De nouvelles indications concernant l'équipement à apporter lors de votre voyage ont été ajoutées.\n\nLa planification votre voyage des 15-16 novembre se déroule comme prévu. Tous les indicateurs de notre service logistique sont au vert.\n\nDe nouvelles informations seront publiées sur votre portail en temps voulu.\n\nVeuillez trouver à nouveau vos identifiants de connexion ci-dessous :\n\nLe portail de voyage : ouvrir ce lien.\nVotre référence de dossier : PEPITO (pour consulter votre réservation)\nCordialement,\n\nNathan Inc. Services Premium\nGRONDIN Nathan - Chef de Bord\n+33770136289 | nathangrondin683@gmail.com`
         },
         { 
             id: 'NOTIF_002', // EMAIL 3
             revealTimestamp: '2025-11-10T11:00:00', 
             icon: "❗", 
-            siteMessage: "Action Requise : Le briefing d'équipement impératif a été publié.",
+            siteMessage: "Action Requise : Le briefing d'équipement 'Dimanche' a été publié.",
             emailSubject: "ACTION REQUISE : Briefing d'Équipement (Dossier PEPITO)",
             emailBody: `Bonjour M. Pépito,\n\nUne action est requise de votre part.\n\nLe Chef de Bord, Nathan, a publié le Briefing d'Équipement impératif pour l'excursion du Dimanche 16. L'accès à cette excursion est conditionné au respect de ce briefing.\n\nVeuillez consulter la section "Briefing de Voyage" sur votre portail "Nathan Inc." pour les instructions.\n\nCordialement,\nNathan Inc. Services Premium\n+33770136289 | nathangrondin683@gmail.com`
         },
@@ -70,10 +72,14 @@ const SITE_CONTENT = {
         }
     ],
 
-    briefingSamedi: `(Informations à venir très prochainement...👀)`,
+    // LOGIQUE DE BRIEFING À 3 ÉTATS
+    briefingSamedi_State1: `(Informations à venir très prochainement...👀)`, // Avant 5 Nov
+    briefingSamedi_State2: `Logement confirmé.\n\nÉquipement requis : Pensez à vos affaires de toilettes et à un pyjama confortable (ou non, c'est très ok aussi).`, // Après 5 Nov
+    briefingSamedi_State3: `Logement & Service Prestige confirmés.\n\nÉquipement requis : Une tenue "élégant-décontracté" est recommandée pour le service du soir. Pensez aussi à vos affaires de toilettes et à un pyjama confortable (ou non...). \nPar ailleurs, nos services traiteurs ont confirmé l'ajout du service dîner all-inclusive dans votre réservation.`, // Après 14 Nov
     
-    // BRIEFING CORRIGÉ
-    briefingDimanche: `(Informations à venir très prochainement...👀)`,
+    // Logique à 2 états pour le dimanche
+    briefingDimanche_Pre: `(Informations à venir très prochainement...👀)`,
+    briefingDimanche_Post: `Une exploration de notre patrimoine ferroviaire est prévue. Un équipement "Explorateur" est requis : chaussures de marche confortables et vêtements imperméables/chauds.`,
     
     lockedMessage: `Toutes les informations concernant le détail de votre itinéraire seront accessibles ici avant le début de votre voyage.\nVous serez prévenu par mail lors de leur affichage.`,
 
@@ -118,7 +124,7 @@ const SITE_CONTENT = {
     navServices: 'Nos services sont actuellement entièrement dédiés à votre réservation, M. Soum. \nAucune autre demande ne sera traitée (sauf "prestation massage").',
     navVoyages: 'Tous les autres voyages sont suspendus pour assurer la pleine réussite de votre weekend d\'exception.',
     navContact: 'Votre chef de bord, Nathan Grondin, est votre unique point de contact. \nVous savez déjà comment le joindre. 😉',
-    navColmar: "N'hésitez pas à vous renseigner auprès de notre chef de bord pour l'organisation d\'un voyage à Colmar." // NOUVEAU
+    navColmar: "N'hésitez pas à vous renseigner auprès de notre chef de bord pour l'organisation d\'un voyage à Colmar."
 };
 // ==========================================================
 // FIN DE L'ADMIN PANEL
@@ -278,9 +284,30 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("info-depart").innerText = SITE_CONTENT.infoDepart; // NOUVEAU
             document.getElementById("info-arrivee").innerText = SITE_CONTENT.infoArrivee; // NOUVEAU
             document.getElementById("info-heures").innerText = SITE_CONTENT.infoHeures; // NOUVEAU
-            document.getElementById("briefing-samedi").innerText = SITE_CONTENT.briefingSamedi;
-            document.getElementById("briefing-dimanche").innerText = SITE_CONTENT.briefingDimanche;
             document.getElementById("locked-message").innerText = SITE_CONTENT.lockedMessage;
+            
+            // LOGIQUE DE BRIEFING CONDITIONNELLE (3 ÉTATS)
+            const now = new Date();
+            const revealDateLogement = new Date(SITE_CONTENT.briefingRevealDate_Logement);
+            const revealDateNourriture = new Date(SITE_CONTENT.briefingRevealDate_Nourriture);
+
+            if (now >= revealDateNourriture) {
+                // État 3: Tout est révélé
+                document.getElementById("briefing-samedi").innerText = SITE_CONTENT.briefingSamedi_State3;
+            } else if (now >= revealDateLogement) {
+                // État 2: Logement révélé
+                document.getElementById("briefing-samedi").innerText = SITE_CONTENT.briefingSamedi_State2;
+            } else {
+                // État 1: Caché
+                document.getElementById("briefing-samedi").innerText = SITE_CONTENT.briefingSamedi_State1;
+            }
+            
+            // Logique pour le briefing du dimanche (basé sur la date de logement)
+            if (now >= revealDateLogement) {
+                document.getElementById("briefing-dimanche").innerText = SITE_CONTENT.briefingDimanche_Post;
+            } else {
+                document.getElementById("briefing-dimanche").innerText = SITE_CONTENT.briefingDimanche_Pre;
+            }
             
             // Remplir Sidebar Promo
             document.getElementById("promo-title").innerText = SITE_CONTENT.promoTitle;
@@ -494,6 +521,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 displaySiteNotification(notif.siteMessage, notif.icon, isInitialLoad);
                 
+                // La logique de briefing est maintenant dans populateContent(),
+                // mais nous la forçons à se rafraîchir si une notif pertinente arrive
+                // pendant que l'utilisateur consulte le site.
+                if (notif.id === 'NOTIF_001' || notif.id === 'NOTIF_004') {
+                    console.log('[Briefing Engine] Rafraîchissement des briefings suite à une notification.');
+                    populateContent(1); // Re-remplit tout le contenu de la Phase 1
+                }
+
                 if (!isInitialLoad) {
                     sendNotificationEmail(notif.emailSubject, notif.emailBody);
                 }

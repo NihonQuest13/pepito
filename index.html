@@ -12,18 +12,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
 
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+    <link rel="manifest" href="manifest.json">
     
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        var cacheBuster = new Date().getTime(); // Crée un ID de version unique
-        document.write('<link rel="stylesheet" href="style.css?v=' + cacheBuster + '">');
-    </script>
 </head>
 <body>
 
@@ -349,8 +343,7 @@
         </div>
     </div>
 
-    <script>
-        document.write('<script src="script.js?v=' + (new Date().getTime()) + '"><\/script>');
-    </script>
+    <script src="script.js" defer></script>
+    <script src="register-sw.js" defer></script>
 </body>
 </html>
