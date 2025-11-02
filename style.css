@@ -62,6 +62,11 @@ h1, h2, h3 {
     height: 40px; /* Taille du logo, à ajuster */
 }
 
+.main-header nav {
+    display: flex; /* Assure que la nav ne se casse pas */
+    align-items: center;
+}
+
 .main-header nav span {
     margin-left: 2rem; /* Plus d'espace */
     font-weight: 600;
@@ -143,12 +148,60 @@ h1, h2, h3 {
     width: 100%;
     white-space: nowrap;
     letter-spacing: 0.5px; /* Lissé */
+    user-select: none; /* Empêche le surlignage au clic */
 }
 
 .cta-button:hover {
     background-color: var(--bleu-hover);
     transform: scale(1.02); /* Micro-interaction subtile */
 }
+
+/* ========================================
+   NOUVEAU: PROMO ACCUEIL (Type SNCF)
+   ======================================== */
+.info-promo-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 4rem auto 0; /* Espace au-dessus */
+    padding: 0 2.5rem 4rem 2.5rem; /* Aligner avec le formulaire et ajouter du padding en bas */
+    box-sizing: border-box;
+}
+
+.promo-card-accueil {
+    background: var(--blanc);
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtile);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.promo-card-accueil:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-moyenne);
+}
+
+.promo-card-accueil img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background-color: var(--gris-clair);
+}
+
+.promo-card-accueil h3 {
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+    margin: 0;
+}
+
+.promo-card-accueil p {
+    font-size: 0.9rem;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    margin: 0;
+    color: var(--gris-texte);
+}
+
 
 /* ========================================
    ÉTAT 2: MODALE DE CONNEXION (v2)
@@ -183,6 +236,7 @@ h1, h2, h3 {
     box-shadow: var(--shadow-moyenne);
     transform: scale(0.95);
     transition: transform 0.3s ease-out;
+    box-sizing: border-box; /* Ajouté pour le padding mobile */
 }
 
 .modal-overlay.visible .modal-content {
@@ -246,6 +300,7 @@ h1, h2, h3 {
     max-width: 1100px;
     margin: 2rem auto;
     padding: 1rem 2rem;
+    box-sizing: border-box; /* Ajouté pour le padding mobile */
 }
 
 .reservation-header {
@@ -267,6 +322,7 @@ h1, h2, h3 {
     border-radius: 6px;
     font-weight: 700;
     font-size: 0.9rem;
+    white-space: nowrap; /* Empêche le badge de se casser */
 }
 
 .status-badge.confirmed {
@@ -277,7 +333,8 @@ h1, h2, h3 {
 /* Bloc d'infos passager */
 .passenger-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* CORRIGÉ: Forcer 3 colonnes */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 1.5rem;
     background: var(--blanc);
     padding: 1.5rem 2rem;
@@ -355,6 +412,7 @@ h1, h2, h3 {
     text-align: center;
     position: relative;
     overflow: hidden;
+    transition: opacity 0.5s ease-out, transform 0.5s ease; /* Ajouté pour animation flip */
 }
 
 .lock-icon {
@@ -457,71 +515,16 @@ h1, h2, h3 {
     line-height: 1;
 }
 
-
-/* ========================================
-   RESPONSIVE (Global)
-   ======================================== */
-@media (max-width: 900px) { /* Breakpoint ajusté pour la nouvelle grille */
-    .booking-form {
-        grid-template-columns: 1fr;
-    }
-    
-    .hero-container h1 {
-        font-size: 2.2rem; /* Plus lisible sur mobile */
-    }
-    
-    .main-header {
-        padding: 1rem 1.5rem;
-        flex-direction: column;
-        gap: 1rem; /* Espace ajouté pour la version mobile */
-    }
-
-    .modal-content {
-        width: 90%;
-        padding: 2rem 1.5rem;
-    }
-
-    /* Responsive pour la page Réservation */
-    .reservation-body-grid {
-        grid-template-columns: 1fr; /* Empiler les colonnes */
-    }
-    
-    .sidebar-column {
-        order: -1; /* Déplacer la météo en haut sur mobile */
-    }
-
-    .info-grid {
-        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
-    }
-
-    .reservation-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .countdown-timer {
-        gap: 0.5rem;
-    }
-    
-    .timer-unit {
-        padding: 0.75rem;
-    }
-    
-    .timer-unit span {
-        font-size: 1.75rem;
-    }
-    
-    .billet-body {
-        grid-template-columns: 1fr; /* Empiler les infos du billet sur mobile */
-    }
-}
-
 /* ========================================
    SECTION MÉTÉO (Simple) - DANS SIDEBAR
    ======================================== */
 .sidebar-column {
     position: relative;
+    display: flex; 
+    flex-direction: column; 
+    gap: 2rem; /* Espace entre les modules */
+    
+    /* CORRECTION: Suppression de 'justify-content' et 'height' */
 }
 
 .weather-section {
@@ -574,6 +577,76 @@ h1, h2, h3 {
 }
 
 /* ========================================
+   NOUVEAU: CARTE DE CONTACT (SIDEBAR)
+   ======================================== */
+.contact-card {
+    background: var(--blanc);
+    border-radius: 8px;
+    box-shadow: var(--shadow-subtile);
+}
+
+.contact-card h2 {
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    color: var(--gris-texte);
+    border-bottom: 1px solid #ddd;
+    padding: 1.5rem;
+    margin: 0;
+}
+
+.contact-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.contact-body strong {
+    font-size: 0.9rem;
+    color: var(--gris-texte);
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+.contact-body span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--bleu-marine);
+    margin-bottom: 0.5rem;
+}
+
+/* ========================================
+   NOUVEAU: CARTE PROMO (SIDEBAR)
+   ======================================== */
+.promo-card {
+    background: var(--blanc);
+    border-radius: 8px;
+    box-shadow: var(--shadow-subtile);
+    overflow: hidden; /* Pour l'image */
+}
+.promo-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+    background-color: var(--gris-clair); /* Placeholder */
+}
+.promo-content {
+    padding: 1.5rem;
+}
+.promo-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+.promo-content p {
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+}
+.promo-link {
+    font-weight: 600;
+    color: var(--bleu-marine);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* ========================================
    STYLES POUR PHASES 2, 3 ET MODALE
    ======================================== */
 
@@ -599,6 +672,7 @@ h1, h2, h3 {
     margin-top: -0.5rem;
     margin-bottom: 1.5rem;
     padding: 0 0.5rem;
+    line-height: 1.5;
 }
 
 .jukebox-section, .billets-section, .gallery-section, .guestbook-section {
@@ -618,7 +692,16 @@ h1, h2, h3 {
     margin-top: 0;
 }
 
-/* NOUVEAUX STYLES DE BILLET */
+/* Style pour l'iframe Spotify */
+.spotify-jukebox {
+    margin-top: 1.5rem;
+}
+
+
+/* ========================================
+   NOUVEAU: FLUX DE BILLETS (PHASE 2)
+   ======================================== */
+
 .billet-card {
     background: var(--blanc);
     border: 1px solid var(--gris-clair);
@@ -626,7 +709,24 @@ h1, h2, h3 {
     box-shadow: var(--shadow-subtile);
     margin-bottom: 1.5rem;
     overflow: hidden; /* Pour les coins arrondis */
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: all 0.4s ease;
+    position: relative; /* Pour le tampon */
+}
+
+/* État "Désactivé" (par défaut pour 2, 3, 4) */
+.billet-card.disabled {
+    opacity: 0.5;
+    background: var(--gris-fond);
+    pointer-events: none; /* Non cliquable */
+}
+
+.billet-card.disabled:hover {
+    box-shadow: var(--shadow-subtile); /* Pas d'effet de survol */
+}
+
+.billet-card:not(.disabled):hover {
+    box-shadow: var(--shadow-moyenne);
+    transform: scale(1.01);
 }
 
 .billet-header {
@@ -636,6 +736,8 @@ h1, h2, h3 {
     background-color: var(--gris-fond);
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--gris-clair);
+    position: relative;
+    z-index: 10; /* Au-dessus du tampon */
 }
 
 .billet-icon {
@@ -652,6 +754,8 @@ h1, h2, h3 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+    position: relative;
+    z-index: 10; /* Au-dessus du tampon */
 }
 
 .billet-info {
@@ -676,41 +780,90 @@ h1, h2, h3 {
 /* NOUVEAU: Style de l'info-bulle narrative */
 .billet-narrative {
     padding: 0 1.5rem 1.5rem 1.5rem;
-    margin-top: -0.5rem;
+    margin: 0 1.5rem 1rem 1.5rem;
     color: #333;
     font-style: italic;
     border-left: 3px solid var(--bleu-marine);
-    margin-left: 1.5rem;
     padding: 0.75rem 1rem;
-    background-color: #f9f9f9;
+    background-color: var(--gris-fond);
     animation: fadeIn 0.5s ease; /* Animation d'apparition */
+    white-space: pre-line; /* Respecter les retours à la ligne du JS */
+    position: relative;
+    z-index: 10; /* Au-dessus du tampon */
+}
+
+.billet-narrative p {
+    margin: 0 0 1rem 0;
+}
+
+.map-button {
+    background-color: var(--bleu-hover);
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    width: auto; /* Bouton s'adapte au texte */
+    display: inline-block;
+}
+
+.map-button:hover {
+    background-color: var(--bleu-marine);
 }
 
 .billet-cta {
     padding: 1.5rem;
     padding-top: 0;
+    position: relative;
+    z-index: 10; /* Au-dessus du tampon */
 }
 
 .billet-button {
     width: 100%;
     background-color: #098551; /* Bouton vert "Composter" */
+    user-select: none;
 }
 
 .billet-button:hover {
     background-color: #076a41;
 }
 
-/* État "utilisé" du billet */
-.billet-card.used {
-    opacity: 0.7;
-    background-color: var(--gris-fond);
-}
-
-.billet-card.used .billet-button {
+.billet-button:disabled {
     background-color: var(--gris-texte);
     cursor: not-allowed;
     transform: none;
     opacity: 0.8;
+}
+
+/* TAMPON "COMPOSTÉ" CORRIGÉ */
+@keyframes stamp-animation {
+    0% {
+        opacity: 0;
+        transform: scale(3) rotate(-30deg);
+    }
+    100% {
+        opacity: 0.1; /* Plus subtil */
+        transform: scale(1) rotate(-15deg);
+    }
+}
+
+.billet-stamp {
+    position: absolute;
+    top: 40%; /* Centré */
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1) rotate(-15deg);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #c00;
+    border: 5px solid #c00;
+    border-radius: 8px;
+    padding: 0.25rem 1rem;
+    opacity: 0; /* Caché par défaut */
+    z-index: 8; /* DERRIÈRE le contenu (z-index: 10) */
+    user-select: none;
+    pointer-events: none; /* Ne bloque pas les clics */
+}
+
+/* État "utilisé" du billet */
+.billet-card.used .billet-stamp {
+    animation: stamp-animation 0.5s ease-out 0.2s forwards; /* Léger délai */
 }
 
 
@@ -730,4 +883,95 @@ h1, h2, h3 {
 
 .notification-item.fade-in {
     animation: fadeIn 0.5s ease-out;
+}
+
+/* ========================================
+   OVERHAUL RESPONSIVE
+   ======================================== */
+@media (max-width: 900px) {
+    
+    .main-header {
+        padding: 1rem 1.5rem;
+        flex-direction: column; /* Empiler logo et nav */
+        align-items: center; /* Centrer le tout */
+        gap: 1rem;
+    }
+
+    .main-header nav {
+        flex-wrap: wrap; /* Permettre aux liens de passer à la ligne */
+        justify-content: center; /* Centrer les liens */
+        gap: 0.5rem;
+    }
+    
+    .main-header nav span {
+        margin-left: 1rem; /* Réduire l'espacement */
+    }
+
+    .hero-container {
+        padding: 4rem 1.5rem 3rem; /* Réduire le padding */
+    }
+    
+    .hero-container h1 {
+        font-size: 2.2rem; /* Plus lisible sur mobile */
+    }
+
+    .booking-form {
+        grid-template-columns: 1fr; /* 1 colonne */
+        padding: 1.5rem;
+    }
+    
+    .modal-content {
+        width: 90%;
+        padding: 2rem 1.5rem;
+    }
+
+    /* Responsive pour la page Réservation */
+    .reservation-container {
+        padding: 1rem 1.5rem; /* Réduire padding horizontal */
+    }
+    
+    .reservation-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    /* CORRIGÉ: .passenger-info passe à 1 colonne */
+    .passenger-info {
+        grid-template-columns: 1fr;
+    }
+
+    .reservation-body-grid {
+        grid-template-columns: 1fr; /* Empiler les colonnes */
+    }
+    
+    .sidebar-column {
+        order: -1; /* Déplacer la météo en haut sur mobile */
+        justify-content: flex-start; /* Ne pas espacer sur mobile */
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    }
+    
+    .countdown-timer {
+        gap: 0.5rem;
+        flex-wrap: wrap; /* Permettre au timer de passer à la ligne */
+        justify-content: center;
+    }
+    
+    .timer-unit {
+        padding: 0.75rem;
+        flex-basis: 100px; /* Assurer une taille de base */
+        flex-grow: 1;
+    }
+    
+    .timer-unit span {
+        font-size: 1.75rem;
+    }
+    
+    .billet-body {
+        grid-template-columns: 1fr; /* Empiler les infos du billet sur mobile */
+        gap: 0.5rem; /* Réduire l'écart */
+    }
 }

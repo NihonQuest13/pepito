@@ -22,13 +22,14 @@
             </div>
             <nav>
                 <span id="nav-services-1">Services</span>
-                <span id="nav-voyages-1">Nos Voyages</span>
+                <span id="nav-voyages-1">Nos voyages</span>
                 <span id="nav-contact-1">Contact</span>
             </nav>
         </header>
 
         <main class="hero-container">
-            <h1>Voyagez au cœur de l'exceptionnel.</h1>
+            <h1>N'ayez pas peur du Bonheur.</h1>
+            
             <form id="booking-form" class="booking-form">
                 <div class="form-group">
                     <label for="depart">Gare de départ</label>
@@ -36,7 +37,7 @@
                 </div>
                 <div class="form-group">
                     <label for="arrivee">Gare d'arrivée</label>
-                    <input type="text" id="arrivee" value="L'Évasion" disabled>
+                    <input type="text" id="arrivee" value="Bonheur" disabled>
                 </div>
                 <div class="form-group">
                     <label for="date-depart">Date de départ</label>
@@ -51,6 +52,25 @@
                 <button type="submit" id="consult-button" class="cta-button">Consulter ma réservation</button>
             </form>
         </main>
+
+        <section class="info-promo-container">
+            <article class="promo-card-accueil">
+                <img src="assets/promo-service.jpg" alt="Service Premium">
+                <h3>Nos Services Premium</h3>
+                <p>Un chef de bord dédié, une logistique sur mesure et une discrétion absolue pour une expérience inoubliable.</p>
+            </article>
+            <article class="promo-card-accueil">
+                <img src="assets/promo-engagement.jpg" alt="Engagement Nathan Inc.">
+                <h3>Nos Engagements</h3>
+                <p>Nous ne créons pas des voyages, nous écrivons des histoires. Votre satisfaction est notre unique cahier des charges.</p>
+            </article>
+            <article class="promo-card-accueil">
+                <img src="assets/promo-experience.jpg" alt="L'expérience">
+                <h3>L'Expérience "Évasion"</h3>
+                <p>Une aventure scénarisée, conçue pour un seul passager. Le luxe ultime est une histoire dont vous êtes le héros.</p>
+            </article>
+        </section>
+
     </div>
 
     <div id="login-modal" class="modal-overlay" style="display: none;">
@@ -75,14 +95,14 @@
             </div>
             <nav>
                 <span id="nav-services-2">Services</span>
-                <span id="nav-voyages-2">Nos Voyages</span>
+                <span id="nav-voyages-2">Nos voyages</span>
                 <span id="nav-contact-2">Contact</span>
             </nav>
         </header>
         
         <main class="reservation-container">
             <div class="reservation-header">
-                <h1>Votre Voyage</h1>
+                <h1>Votre voyage</h1>
                 <span class="status-badge confirmed">STATUT CONFIRMÉ</span>
             </div>
         
@@ -92,12 +112,24 @@
                     <span id="passenger-name"></span>
                 </div>
                 <div class="info-block">
+                    <strong>Chef de Bord</strong>
+                    <span id="chef-de-bord"></span>
+                </div>
+                <div class="info-block">
                     <strong>Référence</strong>
                     <span>LCO-PEPITO-25</span>
                 </div>
                 <div class="info-block">
-                    <strong>Chef de Bord</strong>
-                    <span id="chef-de-bord"></span>
+                    <strong>Gare de départ</strong>
+                    <span id="info-depart"></span>
+                </div>
+                <div class="info-block">
+                    <strong>Gare d'arrivée</strong>
+                    <span id="info-arrivee"></span>
+                </div>
+                <div class="info-block">
+                    <strong>Heures</strong>
+                    <span id="info-heures"></span>
                 </div>
             </div>
 
@@ -113,11 +145,11 @@
                         <h2>// Informations pratiques voyageur</h2>
                         <div class="info-grid">
                             <article class="info-card">
-                                <h3>Samedi : Service de restauration</h3>
+                                <h3>Samedi : [...]</h3>
                                 <p id="briefing-samedi"></p>
                             </article>
                             <article class="info-card">
-                                <h3>Dimanche : Excursion</h3>
+                                <h3>Dimanche : [...]</h3>
                                 <p id="briefing-dimanche"></p>
                             </article>
                         </div>
@@ -143,7 +175,19 @@
                         
                         <section class="jukebox-section">
                             <h2 id="jukebox-title"></h2>
-                            <p id="jukebox-desc"></p>
+                            <p id="jukebox-desc" class="section-description"></p>
+                            
+                            <iframe 
+                                class="spotify-jukebox"
+                                style="border-radius:12px" 
+                                src="https://open.spotify.com/embed/playlist/0CFpm4Iy7QoDlJdH8vwYJ9?utm_source=generator&theme=0" 
+                                width="100%" 
+                                height="352" 
+                                frameBorder="0" 
+                                allowfullscreen="" 
+                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                loading="lazy">
+                            </iframe>
                         </section>
                         
                         <section class="billets-section">
@@ -151,89 +195,68 @@
                             <p id="billets-desc" class="section-description"></p>
                             
                             <article class="billet-card" id="billet-1">
-                                <div class="billet-header">
-                                    <span class="billet-icon">🎟️</span>
-                                    <h3 id="billet-1-title"></h3>
-                                </div>
+                                <div class="billet-stamp">COMPOSTÉ</div>
+                                <div class="billet-header"><span class="billet-icon">🎟️</span><h3 id="billet-1-title"></h3></div>
                                 <div class="billet-body">
-                                    <div class="billet-info">
-                                        <strong>Trajet</strong>
-                                        <span id="billet-1-trajet"></span>
-                                    </div>
-                                    <div class="billet-info">
-                                        <strong>Motif</strong>
-                                        <span id="billet-1-motif"></span>
-                                    </div>
+                                    <div class="billet-info"><strong>Trajet</strong><span id="billet-1-trajet"></span></div>
+                                    <div class="billet-info"><strong>Motif</strong><span id="billet-1-motif"></span></div>
                                 </div>
-                                <div class="billet-narrative" id="billet-1-recit" style="display: none;"></div>
+                                <div class="billet-narrative" id="billet-1-recit" style="display: none;">
+                                    <p id="billet-1-recit-text"></p>
+                                    <a id="billet-1-map-btn" href="#" target="_blank" class="cta-button map-button">📍 Afficher la destination</a>
+                                </div>
                                 <div class="billet-cta">
                                     <button id="composter-1" class="cta-button billet-button">Composter le billet</button>
                                 </div>
                             </article>
                             
-                            <article class="billet-card" id="billet-2" style="display:none;">
-                                <div class="billet-header">
-                                    <span class="billet-icon">🎟️</span>
-                                    <h3 id="billet-2-title"></h3>
-                                </div>
+                            <article class="billet-card disabled" id="billet-2">
+                                <div class="billet-stamp">COMPOSTÉ</div>
+                                <div class="billet-header"><span class="billet-icon">🎟️</span><h3 id="billet-2-title"></h3></div>
                                 <div class="billet-body">
-                                    <div class="billet-info">
-                                        <strong>Trajet</strong>
-                                        <span id="billet-2-trajet"></span>
-                                    </div>
-                                    <div class="billet-info">
-                                        <strong>Motif</strong>
-                                        <span id="billet-2-motif"></span>
-                                    </div>
+                                    <div class="billet-info"><strong>Trajet</strong><span id="billet-2-trajet"></span></div>
+                                    <div class="billet-info"><strong>Motif</strong><span id="billet-2-motif"></span></div>
                                 </div>
-                                <div class="billet-narrative" id="billet-2-recit" style="display: none;"></div>
+                                <div class="billet-narrative" id="billet-2-recit" style="display: none;">
+                                    <p id="billet-2-recit-text"></p>
+                                    <a id="billet-2-map-btn" href="#" target="_blank" class="cta-button map-button">📍 Afficher la destination</a>
+                                </div>
                                 <div class="billet-cta">
-                                    <button id="composter-2" class="cta-button billet-button">Composter le billet</button>
-                                </div>
-                            </article>
-                            
-                            <article class="billet-card" id="billet-3" style="display:none;">
-                                <div class="billet-header">
-                                    <span class="billet-icon">🎟️</span>
-                                    <h3 id="billet-3-title"></h3>
-                                </div>
-                                <div class="billet-body">
-                                    <div class="billet-info">
-                                        <strong>Trajet</strong>
-                                        <span id="billet-3-trajet"></span>
-                                    </div>
-                                    <div class="billet-info">
-                                        <strong>Motif</strong>
-                                        <span id="billet-3-motif"></span>
-                                    </div>
-                                </div>
-                                <div class="billet-narrative" id="billet-3-recit" style="display: none;"></div>
-                                <div class="billet-cta">
-                                    <button id="composter-3" class="cta-button billet-button">Composter le billet</button>
-                                </div>
-                            </article>
-                            
-                            <article class="billet-card" id="billet-4" style="display:none;">
-                                <div class="billet-header">
-                                    <span class="billet-icon">🎟️</span>
-                                    <h3 id="billet-4-title"></h3>
-                                </div>
-                                <div class="billet-body">
-                                    <div class="billet-info">
-                                        <strong>Trajet</strong>
-                                        <span id="billet-4-trajet"></span>
-                                    </div>
-                                    <div class="billet-info">
-                                        <strong>Motif</strong>
-                                        <span id="billet-4-motif"></span>
-                                    </div>
-                                </div>
-                                <div class="billet-narrative" id="billet-4-recit" style="display: none;"></div>
-                                <div class="billet-cta">
-                                    <button id="composter-4" class="cta-button billet-button">Composter le billet</button>
+                                    <button id="composter-2" class="cta-button billet-button" disabled>Composter le billet</button>
                                 </div>
                             </article>
 
+                            <article class="billet-card disabled" id="billet-3">
+                                <div class="billet-stamp">COMPOSTÉ</div>
+                                <div class="billet-header"><span class="billet-icon">🎟️</span><h3 id="billet-3-title"></h3></div>
+                                <div class="billet-body">
+                                    <div class="billet-info"><strong>Trajet</strong><span id="billet-3-trajet"></span></div>
+                                    <div class="billet-info"><strong>Motif</strong><span id="billet-3-motif"></span></div>
+                                </div>
+                                <div class="billet-narrative" id="billet-3-recit" style="display: none;">
+                                    <p id="billet-3-recit-text"></p>
+                                    <a id="billet-3-map-btn" href="#" target="_blank" class="cta-button map-button">📍 Afficher la destination</a>
+                                </div>
+                                <div class="billet-cta">
+                                    <button id="composter-3" class="cta-button billet-button" disabled>Composter le billet</button>
+                                </div>
+                            </article>
+
+                            <article class="billet-card disabled" id="billet-4">
+                                <div class="billet-stamp">COMPOSTÉ</div>
+                                <div class="billet-header"><span class="billet-icon">🎟️</span><h3 id="billet-4-title"></h3></div>
+                                <div class="billet-body">
+                                    <div class="billet-info"><strong>Trajet</strong><span id="billet-4-trajet"></span></div>
+                                    <div class="billet-info"><strong>Motif</strong><span id="billet-4-motif"></span></div>
+                                </div>
+                                <div class="billet-narrative" id="billet-4-recit" style="display: none;">
+                                    <p id="billet-4-recit-text"></p>
+                                    <a id="billet-4-map-btn" href="#" target="_blank" class="cta-button map-button">📍 Afficher la destination</a>
+                                </div>
+                                <div class="billet-cta">
+                                    <button id="composter-4" class="cta-button billet-button">Terminer l'exploration</button>
+                                </div>
+                            </article>
                         </section>
                     </section>
                 </div>
@@ -250,9 +273,28 @@
                             </div>
                         </div>
                     </section>
+                    
+                    <section class="contact-card">
+                        <h2>// Votre contact dédié</h2>
+                        <div class="contact-body">
+                            <strong>Chef de Bord</strong>
+                            <span id="sidebar-chef-name"></span>
+                            <span>+33 7 70 13 62 89</span>
+                        </div>
+                    </section>
+
+                    <section class="promo-card">
+                        <img src="assets/colmar.jpeg" alt="Marché de Noël de Colmar">
+                        <div class="promo-content">
+                            <h3 id="promo-title"></h3>
+                            <p id="promo-desc"></p>
+                            <span id="nav-colmar-promo" class="promo-link">Lancer la planification...</span>
+                        </div>
+                    </section>
                 </div>
                 
-            </div> </main>
+            </div> 
+        </main>
     </div>
 
     <div id="page-phase-3" style="display: none;">
@@ -263,7 +305,7 @@
             </div>
             <nav>
                 <span id="nav-services-3">Services</span>
-                <span id="nav-voyages-3">Nos Voyages</span>
+                <span id="nav-voyages-3">Nos voyages</span>
                 <span id="nav-contact-3">Contact</span>
             </nav>
         </header>
@@ -276,12 +318,12 @@
             
             <section class="gallery-section">
                 <h2 id="gallery-title"></h2>
-                <p id="gallery-desc"></p>
+                <p id="gallery-desc" class="section-description"></p>
             </section>
             
             <section class="guestbook-section">
                 <h2 id="guestbook-title"></h2>
-                <p id="guestbook-desc"></p>
+                <p id="guestbook-desc" class="section-description"></p>
             </section>
         </main>
     </div>
