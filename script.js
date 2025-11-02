@@ -24,7 +24,7 @@ const SITE_CONTENT = {
             id: 'NOTIF_000', // EMAIL 1 (Manuel) - CORPS MIS À JOUR
             revealTimestamp: '2025-11-01T08:00:00', // (Date passée pour affichage immédiat)
             icon: "🔑", 
-            siteMessage: "Bienvenue sur votre portail de voyage, M. Pépito Soum. \nToutes les informations concernant votre voyage se trouvent ici.",
+            siteMessage: "Bienvenue sur votre portail de voyage, M. Soum. \nToutes les informations concernant votre voyage se trouvent ici.",
             emailSubject: "Activation de votre Portail de Voyage (Dossier PEPITO)",
             emailBody: `Bonjour M. Pépito,\n\nPour votre prochain voyage du 15 et 16 novembre 2025, nous avons le plaisir de vous annoncer l'activation de votre portail de voyage personnel et sécurisé.\n\nCe portail sera désormais notre unique canal de communication pour toutes les mises à jour logistiques, les briefings d'équipement et les services expérientiels liés à votre dossier.\n\nVeuillez trouver vos identifiants de connexion ci-dessous :\n\nLe portail de voyage : ouvrir ce lien.\nVotre référence de dossier : PEPITO (pour consulter votre réservation)\n\nNous vous invitons à vous connecter une première fois pour confirmer l'accès.\n\nCordialement,\n\nNathan Inc. Services Premium\nGRONDIN Nathan - Chef de Bord\n+33770136289 | nathangrondin683@gmail.com`
         },
