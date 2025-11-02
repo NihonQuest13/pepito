@@ -919,6 +919,12 @@ h1, h2, h3 {
         grid-template-columns: 1fr; /* 1 colonne */
         padding: 1.5rem;
     }
+
+    /* NOUVELLE RÈGLE: Cartes promo accueil sur mobile */
+    .info-promo-container {
+        grid-template-columns: 1fr;
+        padding: 0 1.5rem 3rem 1.5rem;
+    }
     
     .modal-content {
         width: 90%;
@@ -946,7 +952,8 @@ h1, h2, h3 {
     }
     
     .sidebar-column {
-        order: -1; /* Déplacer la météo en haut sur mobile */
+        /* CORRIGÉ: L'ordre est maintenant géré par le HTML */
+        /* order: -1; (Supprimé) */
         justify-content: flex-start; /* Ne pas espacer sur mobile */
     }
 

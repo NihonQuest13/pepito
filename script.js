@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const content = SITE_CONTENT[contentKey] || "Contenu non trouvé.";
         easterEggTitle.innerText = "Information"; 
         easterEggMessage.innerText = content;
-        easterEggMessage.style.whiteSpace = "pre-line"; // Permet les \n
+        easterEggMessage.style.whiteSpace = "pre-line"; // CORRECTION: Permet les \n
         easterEggModal.style.display = "flex";
         setTimeout(() => easterEggModal.classList.add("visible"), 10);
     }
