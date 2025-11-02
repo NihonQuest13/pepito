@@ -12,7 +12,7 @@ const SITE_CONTENT = {
     
     // NOUVEAU: Infos de voyage pour l'en-tête
     infoDepart: "Bordeaux (Le Lac)",
-    infoArrivee: "Bonheur (Destination secrète)", // MIS À JOUR
+    infoArrivee: "???", // MIS À JOUR
     infoHeures: "15/11 (11:00) - 16/11 (19:00)",
 
     // NOUVEAU: Contenu de la promo Sidebar
@@ -21,12 +21,12 @@ const SITE_CONTENT = {
 
     notifications: [
         { 
-            id: 'NOTIF_000', // EMAIL 1 (Manuel)
+            id: 'NOTIF_000', // EMAIL 1 (Manuel) - CORPS MIS À JOUR
             revealTimestamp: '2025-11-01T08:00:00', // (Date passée pour affichage immédiat)
             icon: "🔑", 
             siteMessage: "Bienvenue sur votre portail de voyage, M. Soum. \nToutes les informations concernant votre voyage se trouvent ici.",
             emailSubject: "Activation de votre Portail de Voyage (Dossier PEPITO)",
-            emailBody: `Bonjour M. Pépito,\n\nPour votre prochain voyage des 15 et 16 novembre 2025, "Nathan Inc." a le plaisir de vous annoncer l'activation de votre portail de voyage personnel et sécurisé.\n\nCe portail sera désormais notre unique canal de communication pour toutes les mises à jour logistiques, les briefings d'équipement et les services expérientiels liés à votre dossier.\n\nVeuillez trouver vos identifiants de connexion ci-dessous :\nVotre Portail de Voyage : www.pepito.com\nVotre Référence de Dossier : PEPITO\n\nNous vous invitons à vous connecter une première fois pour confirmer l'accès.\n\nCordialement,\nNathan Inc. Services Premium\n+33770136289 | nathangrondin683@gmail.com`
+            emailBody: `Bonjour M. Pépito,\n\nPour votre prochain voyage du 15 et 16 novembre 2025, nous avons le plaisir de vous annoncer l'activation de votre portail de voyage personnel et sécurisé.\n\nCe portail sera désormais notre unique canal de communication pour toutes les mises à jour logistiques, les briefings d'équipement et les services expérientiels liés à votre dossier.\n\nVeuillez trouver vos identifiants de connexion ci-dessous :\n\nLe portail de voyage : ouvrir ce lien.\nVotre référence de dossier : PEPITO (pour consulter votre réservation)\n\nNous vous invitons à vous connecter une première fois pour confirmer l'accès.\n\nCordialement,\n\nNathan Inc. Services Premium\nGRONDIN Nathan - Chef de Bord\n+33770136289 | nathangrondin683@gmail.com`
         },
         { 
             id: 'NOTIF_001', // EMAIL 2
