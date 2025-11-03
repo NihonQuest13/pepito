@@ -8,16 +8,21 @@
     <link rel="icon" href="assets/logo.png" type="image/png">
     
     <link rel="apple-touch-icon" href="assets/logo.png">
-
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
 
-    <link rel="manifest" href="manifest.json">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        var cacheBuster = new Date().getTime(); // Crée un ID de version unique
+        document.write('<link rel="stylesheet" href="style.css?v=' + cacheBuster + '">');
+    </script>
 </head>
 <body>
 
@@ -152,11 +157,11 @@
                         <h2>// Informations pratiques voyageur</h2>
                         <div class="info-grid">
                             <article class="info-card">
-                                <h3>Samedi : [...]</h3>
+                                <h3 id="briefing-title-samedi">Samedi : [...]</h3>
                                 <p id="briefing-samedi"></p>
                             </article>
                             <article class="info-card">
-                                <h3>Dimanche : [...]</h3>
+                                <h3 id="briefing-title-dimanche">Dimanche : [...]</h3>
                                 <p id="briefing-dimanche"></p>
                             </article>
                         </div>
@@ -343,7 +348,9 @@
         </div>
     </div>
 
-    <script src="script.js" defer></script>
+    <script>
+        document.write('<script src="script.js?v=' + (new Date().getTime()) + '"><\/script>');
+    </script>
     <script src="register-sw.js" defer></script>
 </body>
 </html>
