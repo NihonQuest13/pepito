@@ -97,7 +97,7 @@ const SITE_CONTENT = {
     briefingTitleDimanche_Pre: `Dimanche : [...]`,
     briefingTitleDimanche_Post: "Dimanche : L'aventure dans le temps",
     briefingDimanche_Pre: `(Informations à venir très prochainement...👀)`,
-    briefingDimanche_Post: `Ceci est votre briefing d'équipement impératif.\nLa journée du dimanche est consacrée à notre expérience de terrain. Le confort est la priorité absolue pour garantir le succès de la mission.\n\nÉquipement OBLIGATOIRE (Non négociable) :\n- Des chaussures très confortables (Baskets ou chaussures de marche). C'est l'accessoire N°1.\n- Un manteau imperméable ou un coupe-vent. (Voir météo prévisionnelle du weekend.\n- Des vêtements chauds (pull, écharpe, etc.).\n\nL'aventure est tout-terrain et tout-temps. Le Chef de Bord compte sur votre préparation.`,
+    briefingDimanche_Post: `Ceci est votre briefing d'équipement impératif.\nLa journée du dimanche est consacrée à notre expérience de terrain. Le confort est la priorité absolue pour garantir le succès de la mission.\n\nÉquipement OBLIGATOIRE (Non négociable) :\n- Des chaussures très confortables (Baskets ou chaussures de marche). C'est l'accessoire N°1.\n- Un manteau imperméable ou un coupe-vent. (Voir météo prévisionnelle du weekend)\n- Des vêtements chauds (pull, écharpe, etc.).\n\nL'aventure est tout-terrain et tout-temps.\nLe Chef de Bord compte sur votre préparation !`,
     
     lockedMessage: `Toutes les informations concernant le détail de votre itinéraire seront accessibles ici avant le début de votre voyage.\nVous serez prévenu par mail lors de leur affichage.`,
 
