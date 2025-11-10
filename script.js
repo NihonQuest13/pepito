@@ -21,6 +21,7 @@ const SITE_CONTENT = {
     briefingRevealDate_Logement: '2025-11-05T09:00:00', // Correspond à NOTIF_001
     briefingRevealDate_Dimanche: '2025-11-10T11:00:00', // Correspond à NOTIF_003 (Email 4)
     briefingRevealDate_Nourriture: '2025-11-14T09:00:00', // Correspond à NOTIF_005
+    feedbackRevealDate: '2025-11-12T09:00:00', // Date de révélation des boutons feedback
 
     notifications: [
         { 
@@ -49,19 +50,19 @@ const SITE_CONTENT = {
         },
         { 
             id: 'NOTIF_003', // NOUVEL EMAIL 4
-            revealTimestamp: '2025-11-10T11:00:00', 
+            revealTimestamp: '2025-11-10T09:00:00', 
             icon: "❗", 
             siteMessage: "Information importante (J-5) : Le briefing 'Dimanche' est disponible. Veuillez prendre connaissance des informations transmises.",
             emailSubject: "(Dossier PEPITO) - Information importante (J-5)",
             emailBody: `Bonjour M. Pépito,\n\nNathan Inc. a le plaisir de vous annoncer que les informations relatives à votre expérience VIP pour ce dimanche 16/11 ont été publiées.\n\nVous trouverez dans la rubrique “Dimanche” un briefing complet pour ce jour.\n\nVeuillez trouver à nouveau vos identifiants de connexion ci-dessous :\nLe portail de voyage : ouvrir ce lien.\nVotre référence de dossier : PEPITO (pour consulter votre réservation)\nCordialement,\n\nNathan Inc. Services Premium\nGRONDIN Nathan - Chef de Bord\n+33770136289 | nathangrondin683@gmail.com`
         },
-        { 
+        {
             id: 'NOTIF_004', // Ancien EMAIL 4
             revealTimestamp: '2025-11-12T09:00:00',
-            icon: "⏳", 
-            siteMessage: "Avis Opérationnel J-3 : L'Opération 'Évasion' entre en phase de pré-lancement.",
+            icon: "⏳",
+            siteMessage: "Avis Opérationnel J-3 : L'Opération 'Évasion' entre en phase de pré-lancement. \nUn nouveau bouton est disponible en haut ! N\'hésitez pas à nous faire un feedback via la barre de navigation.",
             emailSubject: "Avis Opérationnel J-3 (Dossier PEPITO)",
-            emailBody: `Bonjour M. Pépito,\n\nL'Opération 'Évasion' entre en phase de pré-lancement. Les systèmes sont en cours de vérification finale.\n\nLe niveau d'anticipation a été validé par le Chef de Bord. Une nouvelle note de service est visible sur votre portail "Nathan Inc.".\n\nCordialement,\nNathan Inc. Services Premium\n+33770136289 | nathangrondin683@gmail.com`
+            emailBody: `Bonjour M. Pépito,\n\nL'Opération 'Évasion' entre en phase de pré-lancement. Les systèmes sont en cours de vérification finale.\n\nLe niveau d'anticipation a été validé par le Chef de Bord. Une nouvelle note de service est visible sur votre portail "Nathan Inc.".\n\nN'hésitez pas à nous faire un feedback via le bouton de la barre de navigation.\n\nCordialement,\nNathan Inc. Services Premium\n+33770136289 | nathangrondin683@gmail.com`
         },
         { 
             id: 'NOTIF_005', // EMAIL 5
@@ -96,7 +97,7 @@ const SITE_CONTENT = {
     briefingTitleDimanche_Pre: `Dimanche : [...]`,
     briefingTitleDimanche_Post: "Dimanche : L'aventure dans le temps",
     briefingDimanche_Pre: `(Informations à venir très prochainement...👀)`,
-    briefingDimanche_Post: `Ceci est votre briefing d'équipement impératif.\nLa journée du dimanche est consacrée à notre expérience de terrain. Le confort est la priorité absolue pour garantir le succès de la mission.\n\nÉquipement OBLIGATOIRE (Non négociable) :\n- Des chaussures très confortables (Baskets ou chaussures de marche). C'est l'accessoire N°1.\n- Un manteau imperméable ou un coupe-vent.\n- Des vêtements chauds (pull, écharpe, etc.).\n\nL'aventure est tout-terrain et tout-temps. Le Chef de Bord compte sur votre préparation.`,
+    briefingDimanche_Post: `Ceci est votre briefing d'équipement impératif.\nLa journée du dimanche est consacrée à notre expérience de terrain. Le confort est la priorité absolue pour garantir le succès de la mission.\n\nÉquipement OBLIGATOIRE (Non négociable) :\n- Des chaussures très confortables (Baskets ou chaussures de marche). C'est l'accessoire N°1.\n- Un manteau imperméable ou un coupe-vent. (Voir météo prévisionnelle du weekend.\n- Des vêtements chauds (pull, écharpe, etc.).\n\nL'aventure est tout-terrain et tout-temps. Le Chef de Bord compte sur votre préparation.`,
     
     lockedMessage: `Toutes les informations concernant le détail de votre itinéraire seront accessibles ici avant le début de votre voyage.\nVous serez prévenu par mail lors de leur affichage.`,
 
@@ -141,6 +142,7 @@ const SITE_CONTENT = {
     navServices: 'Nos services sont actuellement entièrement dédiés à votre réservation, M. Soum. \nAucune autre demande ne sera traitée (sauf "prestation massage").',
     navVoyages: 'Tous les autres voyages sont suspendus pour assurer la pleine réussite de votre weekend d\'exception.',
     navContact: 'Votre chef de bord, Nathan Grondin, est votre unique point de contact. \nVous savez déjà comment le joindre. 😉',
+    navFeedback: 'Vos retours sont précieux. Partagez vos impressions sur ce voyage unique.',
     navColmar: "N'hésitez pas à vous renseigner auprès de notre chef de bord pour l'organisation d\'un voyage à Colmar."
 };
 // ==========================================================
@@ -155,6 +157,31 @@ let countdownTimerInterval;
 
 // Attend que le DOM soit chargé
 document.addEventListener("DOMContentLoaded", () => {
+
+    // --- VÉRIFICATION DES DATES DE RÉVÉLATION ---
+    function checkRevealDates() {
+        const now = new Date();
+        const feedbackRevealDate = new Date(SITE_CONTENT.feedbackRevealDate);
+        if (now < feedbackRevealDate) {
+            // Cacher le champ "Devinez la destination"
+            const guessInput = document.getElementById('guess');
+            if (guessInput) {
+                guessInput.closest('.form-group').style.display = 'none';
+            }
+            // Cacher les icônes feedback
+            const feedbackIcons = [
+                document.getElementById('nav-feedback-1'),
+                document.getElementById('nav-feedback-2'),
+                document.getElementById('nav-feedback-3')
+            ];
+            feedbackIcons.forEach(icon => {
+                if (icon) icon.style.display = 'none';
+            });
+        }
+    }
+
+    // Appeler la vérification au chargement
+    checkRevealDates();
 
     // --- SÉLECTION DES ÉLÉMENTS DOM ---
     const pageAccueil = document.getElementById("page-accueil");
@@ -173,6 +200,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const easterEggTitle = document.getElementById("easter-egg-title");
     const easterEggMessage = document.getElementById("easter-egg-message");
     const closeEasterEgg = document.getElementById("close-easter-egg");
+
+    // Feedback Modal
+    const feedbackModal = document.getElementById("feedback-modal");
+    const feedbackGuessForm = document.getElementById("feedback-guess-form");
+    const feedbackGuessInput = document.getElementById("feedback-guess-input");
+    const feedbackGuessFeedback = document.getElementById("feedback-guess-feedback");
+    const closeFeedbackModal = document.getElementById("close-feedback-modal");
     
     // Admin Bypass
     const adminBypassButton = document.getElementById("admin-bypass");
@@ -247,6 +281,57 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     closeEasterEgg.addEventListener("click", () => closeModal(easterEggModal));
 
+    feedbackModal.addEventListener("click", (e) => {
+        if (e.target === feedbackModal) closeModal(feedbackModal);
+    });
+    closeFeedbackModal.addEventListener("click", () => closeModal(feedbackModal));
+
+    // --- LOGIQUE DU FORMULAIRE FEEDBACK (MODALE) ---
+    const feedbackModalForm = document.getElementById("feedback-form");
+    const feedbackModalGuessInput = document.getElementById("feedback-guess-input");
+    const feedbackModalGuessFeedback = document.getElementById("feedback-feedback");
+
+    feedbackModalForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const guess = feedbackModalGuessInput.value.trim().toLowerCase();
+
+        // Stocker la supposition en mémoire
+        let storedMessages = JSON.parse(localStorage.getItem('userMessages')) || [];
+        storedMessages.push({ guess: guess, timestamp: new Date().toISOString() });
+        localStorage.setItem('userMessages', JSON.stringify(storedMessages));
+
+        // Feedback de confirmation
+        feedbackModalGuessFeedback.textContent = "Votre supposition a été enregistrée.";
+        feedbackModalGuessFeedback.className = "feedback-message success";
+        feedbackModalGuessFeedback.style.display = "block";
+        feedbackModalGuessInput.value = "";
+    });
+
+    // --- LOGIQUE DU FORMULAIRE GUESSES (PHASE 3) ---
+    const phase3GuessForm = document.getElementById("guess-form");
+    const phase3GuessInput = document.getElementById("guess-input");
+    const phase3GuessFeedback = document.getElementById("guess-feedback");
+
+    phase3GuessForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const guess = phase3GuessInput.value.trim().toLowerCase();
+
+        // Stocker le message en mémoire
+        let storedMessages = JSON.parse(localStorage.getItem('userMessages')) || [];
+        storedMessages.push({ guess: guess, timestamp: new Date().toISOString() });
+        localStorage.setItem('userMessages', JSON.stringify(storedMessages));
+
+        if (guess === "colmar") {
+            phase3GuessFeedback.textContent = "Bravo ! Vous avez deviné juste. Colmar nous attend pour un voyage inoubliable.";
+            phase3GuessFeedback.className = "feedback-message success";
+        } else {
+            phase3GuessFeedback.textContent = "Désolé, ce n'est pas la bonne destination. Essayez encore !";
+            phase3GuessFeedback.className = "feedback-message error";
+        }
+        phase3GuessFeedback.style.display = "block";
+        phase3GuessInput.value = "";
+    });
+
     // --- LOGIQUE ADMIN BYPASS (CADENAS) ---
     if (adminBypassButton) {
         adminBypassButton.addEventListener("click", () => {
@@ -290,18 +375,225 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // --- LOGIQUE DES ICÔNES FEEDBACK ---
+    const feedbackIcons = [
+        document.getElementById('nav-feedback-1'),
+        document.getElementById('nav-feedback-2'),
+        document.getElementById('nav-feedback-3')
+    ];
+    feedbackIcons.forEach(icon => {
+        if (icon) {
+            icon.addEventListener('click', () => {
+                openFeedbackModal();
+            });
+        }
+    });
+
+    // --- LOGIQUE MODALE FEEDBACK ---
+    function openFeedbackModal() {
+        feedbackModal.style.display = "flex";
+        setTimeout(() => feedbackModal.classList.add("visible"), 10);
+        document.getElementById("feedback-guess-input").focus();
+    }
+
+    // Gestionnaire pour le bouton admin dans la modale feedback
+    const adminViewGuessesBtn = document.getElementById("admin-view-guesses");
+    if (adminViewGuessesBtn) {
+        adminViewGuessesBtn.addEventListener("click", () => {
+            const code = prompt("Entrez le code de dérogation Chef de Bord :");
+            if (code === SITE_CONTENT.adminBypassCode) {
+                console.log("Accès admin autorisé. Affichage des suppositions.");
+                const storedMessages = JSON.parse(localStorage.getItem('userMessages')) || [];
+                if (storedMessages.length === 0) {
+                    alert("Aucune supposition stockée.");
+                } else {
+                    let message = "Suppositions collectées :\n\n";
+                    storedMessages.forEach((msg, index) => {
+                        const date = new Date(msg.timestamp).toLocaleString('fr-FR');
+                        message += `${index + 1}. "${msg.guess}" (le ${date})\n`;
+                    });
+                    alert(message);
+                }
+            } else if (code) {
+                alert("Code incorrect.");
+            }
+        });
+    }
+
+    // --- LOGIQUE MÉTÉO ---
+
+    function saveWeatherCache(data) {
+        try {
+            localStorage.setItem('weatherCache', JSON.stringify(data));
+            localStorage.setItem('weatherCacheTimestamp', Date.now().toString());
+            console.log('[Weather] Données météo mises en cache.');
+        } catch (e) {
+            console.warn('[Weather] Impossible de sauvegarder le cache:', e);
+        }
+    }
+
+    function loadWeatherCache() {
+        try {
+            const data = localStorage.getItem('weatherCache');
+            const timestamp = localStorage.getItem('weatherCacheTimestamp');
+            if (data && timestamp) {
+                const age = Date.now() - parseInt(timestamp);
+                // Cache valide pour 24 heures
+                if (age < 24 * 60 * 60 * 1000) {
+                    return JSON.parse(data);
+                } else {
+                    localStorage.removeItem('weatherCache');
+                    localStorage.removeItem('weatherCacheTimestamp');
+                }
+            }
+        } catch (e) {
+            console.warn('[Weather] Erreur lors du chargement du cache:', e);
+        }
+        return null;
+    }
+
+    function displayWeather(data, isCached = false) {
+        const weatherIcon = document.querySelector('.weather-icon');
+        const weatherTemp = document.querySelector('.weather-temp');
+        const weatherDesc = document.querySelector('.weather-desc');
+        const weatherFeels = document.querySelector('.weather-feels');
+
+        // Current weather
+        weatherIcon.textContent = getWeatherIcon(data.current.weatherCode);
+        weatherTemp.textContent = `${data.current.temp}°C`;
+        weatherDesc.textContent = isCached ? 'Conditions actuelles (mises en cache)' : 'Conditions actuelles';
+        weatherFeels.textContent = '';
+
+        // Forecast
+        const samediIcon = document.querySelector('#forecast-samedi .forecast-icon');
+        const samediTemp = document.querySelector('#forecast-samedi .forecast-temp');
+        if (samediIcon && samediTemp) {
+            samediIcon.textContent = getWeatherIcon(data.forecast.samedi.weatherCode);
+            samediTemp.textContent = `${data.forecast.samedi.temp}°C`;
+        }
+
+        const dimancheIcon = document.querySelector('#forecast-dimanche .forecast-icon');
+        const dimancheTemp = document.querySelector('#forecast-dimanche .forecast-temp');
+        if (dimancheIcon && dimancheTemp) {
+            dimancheIcon.textContent = getWeatherIcon(data.forecast.dimanche.weatherCode);
+            dimancheTemp.textContent = `${data.forecast.dimanche.temp}°C`;
+        }
+
+        console.log(`[Weather] Données affichées ${isCached ? '(cache)' : '(API)'}`);
+    }
+
+    async function fetchWeather() {
+        const latitude = 44.6333;
+        const longitude = -1.1333;
+        const currentUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+        const forecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weathercode,temperature_2m_max&timezone=Europe/Paris&start_date=2025-11-15&end_date=2025-11-16`;
+
+        try {
+            // Fetch current weather
+            const currentResponse = await fetch(currentUrl);
+            if (!currentResponse.ok) {
+                throw new Error('Erreur API météo actuelle');
+            }
+            const currentData = await currentResponse.json();
+
+            const current = currentData.current_weather;
+            const temp = Math.round(current.temperature);
+            const weatherCode = current.weathercode;
+
+            // Fetch forecast
+            const forecastResponse = await fetch(forecastUrl);
+            if (!forecastResponse.ok) {
+                throw new Error('Erreur API prévisions');
+            }
+            const forecastData = await forecastResponse.json();
+
+            const daily = forecastData.daily;
+            let samediWeatherCode = 0, samediTemp = 0, dimancheWeatherCode = 0, dimancheTemp = 0;
+            if (daily && daily.weathercode && daily.temperature_2m_max) {
+                samediWeatherCode = daily.weathercode[0];
+                samediTemp = Math.round(daily.temperature_2m_max[0]);
+                dimancheWeatherCode = daily.weathercode[1];
+                dimancheTemp = Math.round(daily.temperature_2m_max[1]);
+            }
+
+            const weatherData = {
+                current: { weatherCode, temp },
+                forecast: {
+                    samedi: { weatherCode: samediWeatherCode, temp: samediTemp },
+                    dimanche: { weatherCode: dimancheWeatherCode, temp: dimancheTemp }
+                }
+            };
+
+            // Sauvegarder en cache
+            saveWeatherCache(weatherData);
+
+            // Afficher les données
+            displayWeather(weatherData, false);
+
+            console.log('[Weather] Données météo et prévisions chargées depuis Open-Meteo');
+        } catch (error) {
+            console.warn('[Weather] Erreur lors du chargement des données météo:', error);
+
+            // Essayer de charger depuis le cache
+            const cachedData = loadWeatherCache();
+            if (cachedData) {
+                displayWeather(cachedData, true);
+                console.log('[Weather] Données mises en cache utilisées en fallback.');
+            } else {
+                console.warn('[Weather] Aucun cache disponible.');
+            }
+        }
+    }
+
+    function getWeatherIcon(weatherCode) {
+        const iconMap = {
+            0: '☀️', // Clear sky
+            1: '🌤️', // Mainly clear
+            2: '⛅', // Partly cloudy
+            3: '☁️', // Overcast
+            45: '🌫️', // Fog
+            48: '🌫️', // Depositing rime fog
+            51: '🌦️', // Drizzle: Light intensity
+            53: '🌦️', // Drizzle: Moderate intensity
+            55: '🌦️', // Drizzle: Dense intensity
+            56: '🌨️', // Freezing Drizzle: Light intensity
+            57: '🌨️', // Freezing Drizzle: Dense intensity
+            61: '🌦️', // Rain: Slight intensity
+            63: '🌧️', // Rain: Moderate intensity
+            65: '🌧️', // Rain: Heavy intensity
+            66: '🌨️', // Freezing Rain: Light intensity
+            67: '🌨️', // Freezing Rain: Heavy intensity
+            71: '❄️', // Snow fall: Slight intensity
+            73: '❄️', // Snow fall: Moderate intensity
+            75: '❄️', // Snow fall: Heavy intensity
+            77: '❄️', // Snow grains
+            80: '🌦️', // Rain showers: Slight
+            81: '🌧️', // Rain showers: Moderate
+            82: '🌧️', // Rain showers: Violent
+            85: '❄️', // Snow showers slight
+            86: '❄️', // Snow showers heavy
+            95: '⛈️', // Thunderstorm: Slight or moderate
+            96: '⛈️', // Thunderstorm with slight hail
+            99: '⛈️'  // Thunderstorm with heavy hail
+        };
+        return iconMap[weatherCode] || '🌦️';
+    }
+
     // --- LOGIQUE DE REMPLISSAGE DE CONTENU ---
-    
+
     function populateContent(phase) {
         if (phase === 1) {
             // Remplir Phase 1 (Statique)
             document.getElementById("passenger-name").innerText = SITE_CONTENT.passengerName;
             document.getElementById("chef-de-bord").innerText = SITE_CONTENT.chefDeBord;
-            document.getElementById("sidebar-chef-name").innerText = SITE_CONTENT.chefDeBord; 
+            document.getElementById("sidebar-chef-name").innerText = SITE_CONTENT.chefDeBord;
             document.getElementById("info-depart").innerText = SITE_CONTENT.infoDepart; // NOUVEAU
             document.getElementById("info-arrivee").innerText = SITE_CONTENT.infoArrivee; // NOUVEAU
             document.getElementById("info-heures").innerText = SITE_CONTENT.infoHeures; // NOUVEAU
             document.getElementById("locked-message").innerText = SITE_CONTENT.lockedMessage;
+
+            // Fetch real weather data
+            fetchWeather();
             
             // LOGIQUE DE BRIEFING CONDITIONNELLE (3 ÉTATS)
             const now = new Date();
@@ -332,7 +624,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("briefing-title-dimanche").innerText = SITE_CONTENT.briefingTitleDimanche_Pre;
                 document.getElementById("briefing-dimanche").innerText = SITE_CONTENT.briefingDimanche_Pre;
             }
-            
+
+            // Logique de révélation des boutons feedback
+            const feedbackRevealDate_pop = new Date(SITE_CONTENT.feedbackRevealDate);
+            feedbackIcons.forEach(icon => {
+                if (icon) {
+                    if (now < feedbackRevealDate_pop) {
+                        icon.style.display = 'none';
+                    } else {
+                        icon.style.display = 'block';
+                    }
+                }
+            });
+
             // Remplir Sidebar Promo
             document.getElementById("promo-title").innerText = SITE_CONTENT.promoTitle;
             document.getElementById("promo-desc").innerText = SITE_CONTENT.promoDesc;
@@ -443,54 +747,150 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     // ===============================================
-    // LOGIQUE DE COMPOSTAGE DES BILLETS (Flux vertical)
+    // LOGIQUE DE COMPOSTAGE DES BILLETS (Journal horizontal)
     // ===============================================
     function setupBilletLogic() {
         const billets = [
-            { id: 1, nextId: 2 },
-            { id: 2, nextId: 3 },
-            { id: 3, nextId: 4 },
-            { id: 4, nextId: null } // Le dernier billet
+            { id: 1, title: SITE_CONTENT.billet1_Title, trajet: SITE_CONTENT.billet1_Trajet, motif: SITE_CONTENT.billet1_Motif, recit: SITE_CONTENT.billet1_Recit },
+            { id: 2, title: SITE_CONTENT.billet2_Title, trajet: SITE_CONTENT.billet2_Trajet, motif: SITE_CONTENT.billet2_Motif, recit: SITE_CONTENT.billet2_Recit },
+            { id: 3, title: SITE_CONTENT.billet3_Title, trajet: SITE_CONTENT.billet3_Trajet, motif: SITE_CONTENT.billet3_Motif, recit: SITE_CONTENT.billet3_Recit },
+            { id: 4, title: SITE_CONTENT.billet4_Title, trajet: SITE_CONTENT.billet4_Trajet, motif: SITE_CONTENT.billet4_Motif, recit: SITE_CONTENT.billet4_Recit }
         ];
 
-        billets.forEach(billet => {
-            const compostButton = document.getElementById(`composter-${billet.id}`);
-            if (compostButton) {
-                compostButton.addEventListener('click', function() {
-                    console.log(`Billet ${billet.id} composté.`);
-                    
-                    const card = document.getElementById(`billet-${billet.id}`);
-                    const recit = document.getElementById(`billet-${billet.id}-recit`);
-                    
-                    card.classList.add('used'); // Déclenche l'animation du tampon
-                    card.classList.remove('disabled'); // Au cas où
-                    
-                    this.disabled = true;
-                    this.innerText = (billet.nextId) ? 'Billet Composté' : "Exploration Terminée"; // Changer le texte du dernier bouton
-                    
-                    recit.style.display = 'block'; // Révèle le récit
-                    
-                    // Révéler le billet suivant (s'il existe)
-                    if (billet.nextId) {
-                        const nextBilletCard = document.getElementById(`billet-${billet.nextId}`);
-                        const nextBilletButton = document.getElementById(`composter-${billet.nextId}`);
-                        
-                        nextBilletCard.classList.remove('disabled');
-        
-                        if(nextBilletButton) {
-                            nextBilletButton.disabled = false;
-                        }
-                        
-                        // Faire défiler jusqu'au nouveau billet
-                        nextBilletCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    } else {
-                        // C'est le dernier billet
-                        console.log("Fin de l'exploration.");
-                        setTimeout(triggerPhase3Transition, 2000); // Délai de 2s avant de passer à la phase 3
-                    }
-                });
+        let currentPage = 1;
+        const totalPages = 4;
+        const journalPages = document.querySelector('.journal-pages');
+        const prevBtn = document.getElementById('prev-page');
+        const nextBtn = document.getElementById('next-page');
+        const indicators = document.querySelectorAll('.indicator');
+
+        // Fonction pour charger le contenu d'un billet
+        function loadBilletContent(billetId) {
+            const billet = billets.find(b => b.id === billetId);
+            if (!billet) return;
+
+            document.getElementById(`billet-${billetId}-title`).textContent = billet.title;
+            document.getElementById(`billet-${billetId}-trajet`).textContent = billet.trajet;
+            document.getElementById(`billet-${billetId}-motif`).textContent = billet.motif;
+            document.getElementById(`billet-${billetId}-recit-text`).textContent = billet.recit;
+        }
+
+        // Charger tous les contenus
+        billets.forEach(billet => loadBilletContent(billet.id));
+
+        // Fonction pour mettre à jour la navigation
+        function updateNavigation() {
+            // Boutons prev/next
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+
+            // Indicateurs
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index + 1 === currentPage);
+            });
+
+            // Pages actives
+            document.querySelectorAll('.billet-page').forEach((page, index) => {
+                page.classList.toggle('active', index + 1 === currentPage);
+            });
+        }
+
+        // Fonction pour naviguer vers une page
+        function goToPage(page) {
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            const translateX = -(page - 1) * 25; // 25% par page
+            journalPages.style.transform = `translateX(${translateX}%)`;
+            updateNavigation();
+        }
+
+        // Événements de navigation
+        prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+        nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => goToPage(index + 1));
+        });
+
+        // Gestion des gestes tactiles
+        let startX = 0;
+        let isDragging = false;
+
+        journalPages.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        journalPages.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const currentX = e.touches[0].clientX;
+            const diff = startX - currentX;
+            if (Math.abs(diff) > 50) { // Seuil de swipe
+                if (diff > 0 && currentPage < totalPages) {
+                    goToPage(currentPage + 1); // Swipe gauche -> page suivante
+                } else if (diff < 0 && currentPage > 1) {
+                    goToPage(currentPage - 1); // Swipe droite -> page précédente
+                }
+                isDragging = false;
             }
         });
+
+        journalPages.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Gestion des boutons "Lire le récit"
+        for (let i = 1; i <= 4; i++) {
+            const readBtn = document.getElementById(`read-recit-${i}`);
+            readBtn.addEventListener('click', function() {
+                const recitDiv = document.getElementById(`billet-${i}-recit`);
+                recitDiv.style.display = recitDiv.style.display === 'block' ? 'none' : 'block';
+                readBtn.textContent = recitDiv.style.display === 'block' ? 'Masquer le récit' : 'Lire le récit';
+            });
+        }
+
+        // Gestion des compostages
+        for (let i = 1; i <= 4; i++) {
+            const composterBtn = document.getElementById(`composter-${i}`);
+            composterBtn.addEventListener('click', function() {
+                const billetPage = document.getElementById(`billet-${i}`);
+                const recitDiv = document.getElementById(`billet-${i}-recit`);
+
+                // Révéler le récit si pas déjà visible
+                recitDiv.style.display = 'block';
+
+                // Ajouter la classe "used" pour l'animation du tampon
+                billetPage.classList.add('used');
+
+                // Désactiver le bouton
+                composterBtn.disabled = true;
+                composterBtn.textContent = 'Composté';
+
+                // Activer la page suivante
+                if (i < 4) {
+                    const nextPage = document.getElementById(`billet-${i + 1}`);
+                    nextPage.classList.remove('disabled');
+                    const nextReadBtn = document.getElementById(`read-recit-${i + 1}`);
+                    const nextComposterBtn = document.getElementById(`composter-${i + 1}`);
+                    nextReadBtn.disabled = false;
+                    nextComposterBtn.disabled = false;
+
+                    // Naviguer vers la page suivante après un délai
+                    setTimeout(() => {
+                        goToPage(i + 1);
+                    }, 1500);
+                } else {
+                    // Dernier billet : terminer l'exploration
+                    composterBtn.textContent = 'Terminer l\'exploration';
+                    setTimeout(() => {
+                        triggerPhase3Transition();
+                    }, 2000);
+                }
+            });
+        }
+
+        // Initialiser la navigation
+        updateNavigation();
     }
 
     // (Fonction placeholder pour la fin)

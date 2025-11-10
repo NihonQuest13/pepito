@@ -49,6 +49,8 @@ h1, h2, h3 {
     z-index: 100;
 }
 
+
+
 .logo {
     font-size: 1.75rem; /* Plus d'impact */
     font-weight: 700;
@@ -204,7 +206,7 @@ h1, h2, h3 {
 
 
 /* ========================================
-   ÉTAT 2: MODALE DE CONNEXION (v2)
+   ÉTAT 2: MODALE DE CONNEXION (v2) - ANIMATIONS AMÉLIORÉES
    ======================================== */
 .modal-overlay {
     position: fixed;
@@ -219,11 +221,12 @@ h1, h2, h3 {
     justify-content: center;
     z-index: 1000;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s ease, backdrop-filter 0.5s ease;
 }
 
 .modal-overlay.visible {
     opacity: 1;
+    backdrop-filter: blur(10px);
 }
 
 .modal-content {
@@ -234,13 +237,15 @@ h1, h2, h3 {
     max-width: 450px;
     text-align: center;
     box-shadow: var(--shadow-moyenne);
-    transform: scale(0.95);
-    transition: transform 0.3s ease-out;
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
     box-sizing: border-box; /* Ajouté pour le padding mobile */
 }
 
 .modal-overlay.visible .modal-content {
-    transform: scale(1);
+    transform: scale(1) translateY(0);
+    opacity: 1;
 }
 
 .modal-content h2 {
@@ -577,6 +582,58 @@ h1, h2, h3 {
     color: #777;
 }
 
+/* Prévisions météo weekend */
+.weather-forecast {
+    padding: 1.5rem;
+    border-top: 1px solid #ddd;
+    background-color: var(--gris-fond);
+    margin-top: 1rem;
+}
+
+.weather-forecast h3 {
+    font-size: 1.2rem;
+    margin: 0 0 1.5rem 0;
+    color: var(--bleu-marine);
+    font-weight: 600;
+    text-align: center;
+}
+
+.forecast-day {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--gris-clair);
+    background-color: var(--blanc);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.forecast-day:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.forecast-day span {
+    font-weight: 600;
+    color: var(--gris-texte);
+    font-size: 1rem;
+    flex: 1;
+}
+
+.forecast-icon {
+    font-size: 2rem;
+    margin: 0 1rem;
+}
+
+.forecast-temp {
+    font-weight: 700;
+    color: var(--bleu-marine);
+    font-size: 1.3rem;
+}
+
 /* ========================================
    NOUVEAU: CARTE DE CONTACT (SIDEBAR)
    ======================================== */
@@ -700,34 +757,53 @@ h1, h2, h3 {
 
 
 /* ========================================
-   NOUVEAU: FLUX DE BILLETS (PHASE 2)
+   NOUVEAU: JOURNAL DE VOYAGE (PHASE 2)
    ======================================== */
 
-.billet-card {
+.journal-container {
+    position: relative;
+    overflow: hidden;
     background: var(--blanc);
-    border: 1px solid var(--gris-clair);
     border-radius: 12px;
-    box-shadow: var(--shadow-subtile);
-    margin-bottom: 1.5rem;
-    overflow: hidden; /* Pour les coins arrondis */
-    transition: all 0.4s ease;
-    position: relative; /* Pour le tampon */
-}
-
-/* État "Désactivé" (par défaut pour 2, 3, 4) */
-.billet-card.disabled {
-    opacity: 0.5;
-    background: var(--gris-fond);
-    pointer-events: none; /* Non cliquable */
-}
-
-.billet-card.disabled:hover {
-    box-shadow: var(--shadow-subtile); /* Pas d'effet de survol */
-}
-
-.billet-card:not(.disabled):hover {
     box-shadow: var(--shadow-moyenne);
-    transform: scale(1.01);
+    padding: 1rem;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.journal-pages {
+    display: flex;
+    width: 400%; /* 4 pages */
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Transition fluide */
+}
+
+.billet-page {
+    flex: 0 0 25%; /* Chaque page prend 25% de la largeur totale */
+    background: var(--blanc);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: var(--shadow-subtile);
+    margin: 0 0.5rem;
+    position: relative;
+    min-height: 200px;
+    max-width: calc(100vw - 4rem); /* Limiter la largeur maximale */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* État actif */
+.billet-page.active {
+    box-shadow: var(--shadow-moyenne);
+    transform: scale(1.02);
+}
+
+/* État désactivé */
+.billet-page.disabled {
+    opacity: 0.6;
+    pointer-events: none;
 }
 
 .billet-header {
@@ -736,27 +812,30 @@ h1, h2, h3 {
     gap: 0.75rem;
     background-color: var(--gris-fond);
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--gris-clair);
+    border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid var(--bleu-marine);
     position: relative;
-    z-index: 10; /* Au-dessus du tampon */
+    z-index: 10;
 }
 
 .billet-icon {
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 .billet-header h3 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    color: var(--bleu-marine);
 }
 
 .billet-body {
-    padding: 1.5rem;
+    padding: 1.5rem 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+    flex-grow: 1;
     position: relative;
-    z-index: 10; /* Au-dessus du tampon */
+    z-index: 10;
 }
 
 .billet-info {
@@ -765,44 +844,49 @@ h1, h2, h3 {
 }
 
 .billet-info strong {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: var(--gris-texte);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
     font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .billet-info span {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.2rem;
+    font-weight: 700;
     color: var(--bleu-marine);
 }
 
-/* NOUVEAU: Style de l'info-bulle narrative */
+/* Style de l'info-bulle narrative */
 .billet-narrative {
-    padding: 0 1.5rem 1.5rem 1.5rem;
-    margin: 0 1.5rem 1rem 1.5rem;
-    color: #333;
-    font-style: italic;
-    border-left: 3px solid var(--bleu-marine);
-    padding: 0.75rem 1rem;
+    padding: 1rem;
     background-color: var(--gris-fond);
-    animation: fadeIn 0.5s ease; /* Animation d'apparition */
-    white-space: pre-line; /* Respecter les retours à la ligne du JS */
+    border-left: 4px solid var(--bleu-marine);
+    border-radius: 0 8px 8px 0;
+    margin: 1rem 0;
+    animation: fadeIn 0.8s ease;
+    white-space: pre-line;
     position: relative;
-    z-index: 10; /* Au-dessus du tampon */
+    z-index: 10;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .billet-narrative p {
     margin: 0 0 1rem 0;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
 .map-button {
     background-color: var(--bleu-hover);
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
-    width: auto; /* Bouton s'adapte au texte */
+    border-radius: 6px;
+    color: var(--blanc);
+    text-decoration: none;
     display: inline-block;
+    transition: background-color 0.3s ease;
 }
 
 .map-button:hover {
@@ -810,15 +894,25 @@ h1, h2, h3 {
 }
 
 .billet-cta {
-    padding: 1.5rem;
-    padding-top: 0;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
     position: relative;
-    z-index: 10; /* Au-dessus du tampon */
+    z-index: 10;
+}
+
+.read-button {
+    background-color: var(--gris-texte);
+    flex: 1;
+}
+
+.read-button:hover {
+    background-color: #555;
 }
 
 .billet-button {
-    width: 100%;
-    background-color: #098551; /* Bouton vert "Composter" */
+    background-color: #098551;
+    flex: 1;
     user-select: none;
 }
 
@@ -833,43 +927,109 @@ h1, h2, h3 {
     opacity: 0.8;
 }
 
-/* TAMPON "COMPOSTÉ" CORRIGÉ */
+/* TAMPON "COMPOSTÉ" 3D */
 @keyframes stamp-animation {
     0% {
         opacity: 0;
-        transform: scale(3) rotate(-30deg);
+        transform: scale(5) rotate(-45deg) translateZ(0);
+        filter: drop-shadow(0 0 0 transparent);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2) rotate(-20deg) translateZ(20px);
+        filter: drop-shadow(0 10px 20px rgba(192, 0, 0, 0.5));
     }
     100% {
-        opacity: 0.1; /* Plus subtil */
-        transform: scale(1) rotate(-15deg);
+        opacity: 0.3;
+        transform: scale(1) rotate(-15deg) translateZ(0);
+        filter: drop-shadow(0 5px 10px rgba(192, 0, 0, 0.3));
     }
 }
 
 .billet-stamp {
     position: absolute;
-    top: 40%; /* Centré */
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1) rotate(-15deg);
-    font-size: 3.5rem;
-    font-weight: 700;
+    font-size: 4rem;
+    font-weight: 900;
     color: #c00;
-    border: 5px solid #c00;
-    border-radius: 8px;
-    padding: 0.25rem 1rem;
-    opacity: 0; /* Caché par défaut */
-    z-index: 8; /* DERRIÈRE le contenu (z-index: 10) */
+    border: 6px solid #c00;
+    border-radius: 12px;
+    padding: 0.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    z-index: 5;
     user-select: none;
-    pointer-events: none; /* Ne bloque pas les clics */
+    pointer-events: none;
+    box-shadow: 0 0 20px rgba(192, 0, 0, 0.2);
 }
 
 /* État "utilisé" du billet */
-.billet-card.used .billet-stamp {
-    animation: stamp-animation 0.5s ease-out 0.2s forwards; /* Léger délai */
+.billet-page.used .billet-stamp {
+    animation: stamp-animation 1s ease-out 0.3s forwards;
+}
+
+/* Navigation du journal */
+.journal-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--gris-clair);
+}
+
+.nav-button {
+    background: var(--bleu-marine);
+    color: var(--blanc);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.nav-button:hover:not(:disabled) {
+    background: var(--bleu-hover);
+    transform: scale(1.05);
+}
+
+.nav-button:disabled {
+    background: var(--gris-clair);
+    color: var(--gris-texte);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.page-indicators {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gris-clair);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.indicator.active {
+    background: var(--bleu-marine);
+    transform: scale(1.2);
+}
+
+.indicator:hover {
+    background: var(--bleu-hover);
 }
 
 
 /* ========================================
-   AJOUT: ANIMATION D'APPARITION
+   AJOUT: ANIMATION D'APPARITION ET TRANSITIONS DE PHASES
    ======================================== */
 @keyframes fadeIn {
     from {
@@ -886,11 +1046,239 @@ h1, h2, h3 {
     animation: fadeIn 0.5s ease-out;
 }
 
+/* Animations pour les transitions de phases */
+@keyframes phaseFadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+}
+
+@keyframes phaseFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes phaseSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes phaseZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.phase-transition-fade-out {
+    animation: phaseFadeOut 0.8s ease-out forwards;
+}
+
+.phase-transition-fade-in {
+    animation: phaseFadeIn 0.8s ease-out forwards;
+}
+
+.phase-transition-slide-in {
+    animation: phaseSlideIn 0.8s ease-out forwards;
+}
+
+.phase-transition-zoom-in {
+    animation: phaseZoomIn 0.8s ease-out forwards;
+}
+
+/* ========================================
+   GESTES TACTILES POUR LES BILLETS
+   ======================================== */
+.billets-section {
+    position: relative;
+    overflow: hidden; /* Pour contenir les cartes pendant le swipe */
+}
+
+.billets-container {
+    display: flex;
+    transition: transform 0.3s ease-out;
+    width: 100%;
+}
+
+.billet-card {
+    flex: 0 0 100%; /* Chaque carte prend toute la largeur */
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.billet-card.swipe-left {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.billet-card.swipe-right {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.billet-card.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Indicateurs de swipe */
+.swipe-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.swipe-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--gris-clair);
+    transition: background-color 0.3s ease;
+}
+
+.swipe-indicator.active {
+    background-color: var(--bleu-marine);
+}
+
+/* ========================================
+   NOUVEAU: SECTION FEEDBACK (SIDEBAR)
+   ======================================== */
+.feedback-section {
+    background: var(--blanc);
+    border-radius: 8px;
+    box-shadow: var(--shadow-subtile);
+    padding: 1.5rem;
+}
+
+.feedback-section h2 {
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    color: var(--gris-texte);
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+    margin: 0 0 1rem 0;
+}
+
+.feedback-section p {
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+    color: var(--gris-texte);
+}
+
+.feedback-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.feedback-section label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--gris-texte);
+}
+
+.feedback-section input[type="text"] {
+    padding: 0.75rem;
+    border: 1px solid var(--gris-clair);
+    border-radius: 6px;
+    font-family: var(--font-principale);
+    font-size: 1rem;
+}
+
+.feedback-section .cta-button {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.feedback-message {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    display: none;
+}
+
+.feedback-message.success {
+    background-color: #e6f7f0;
+    color: #098551;
+    border: 1px solid #b8f0d3;
+}
+
+.feedback-message.error {
+    background-color: #fdeaea;
+    color: #d32f2f;
+    border: 1px solid #f5c6cb;
+}
+
+/* ========================================
+   MODALE FEEDBACK
+   ======================================== */
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.feedback-form label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--gris-texte);
+}
+
+.feedback-form textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--gris-clair);
+    border-radius: 6px;
+    font-family: var(--font-principale);
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.feedback-form input[type="text"] {
+    padding: 0.75rem;
+    border: 1px solid var(--gris-clair);
+    border-radius: 6px;
+    font-family: var(--font-principale);
+    font-size: 1rem;
+}
+
+.feedback-form .cta-button {
+    align-self: flex-start;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
 /* ========================================
    OVERHAUL RESPONSIVE
    ======================================== */
 @media (max-width: 900px) {
-    
+
     .main-header {
         padding: 1rem 1.5rem;
         flex-direction: column; /* Empiler logo et nav */
@@ -903,7 +1291,7 @@ h1, h2, h3 {
         justify-content: center; /* Centrer les liens */
         gap: 0.5rem;
     }
-    
+
     .main-header nav span {
         margin-left: 1rem; /* Réduire l'espacement */
     }
@@ -911,7 +1299,7 @@ h1, h2, h3 {
     .hero-container {
         padding: 4rem 1.5rem 3rem; /* Réduire le padding */
     }
-    
+
     .hero-container h1 {
         font-size: 2.2rem; /* Plus lisible sur mobile */
     }
@@ -926,7 +1314,7 @@ h1, h2, h3 {
         grid-template-columns: 1fr;
         padding: 0 1.5rem 3rem 1.5rem;
     }
-    
+
     .modal-content {
         width: 90%;
         padding: 2rem 1.5rem;
@@ -936,7 +1324,7 @@ h1, h2, h3 {
     .reservation-container {
         padding: 1rem 1.5rem; /* Réduire padding horizontal */
     }
-    
+
     .reservation-header {
         flex-direction: column;
         align-items: flex-start;
@@ -951,7 +1339,7 @@ h1, h2, h3 {
     .reservation-body-grid {
         grid-template-columns: 1fr; /* Empiler les colonnes */
     }
-    
+
     .sidebar-column {
         /* CORRIGÉ: L'ordre est maintenant géré par le HTML */
         /* order: -1; (Supprimé) */
@@ -961,25 +1349,46 @@ h1, h2, h3 {
     .info-grid {
         grid-template-columns: 1fr; /* Une seule colonne sur mobile */
     }
-    
+
     .countdown-timer {
         gap: 0.5rem;
         flex-wrap: wrap; /* Permettre au timer de passer à la ligne */
         justify-content: center;
     }
-    
+
     .timer-unit {
         padding: 0.75rem;
         flex-basis: 100px; /* Assurer une taille de base */
         flex-grow: 1;
     }
-    
+
     .timer-unit span {
         font-size: 1.75rem;
     }
-    
+
     .billet-body {
         grid-template-columns: 1fr; /* Empiler les infos du billet sur mobile */
         gap: 0.5rem; /* Réduire l'écart */
+    }
+
+    .journal-container {
+        padding: 0.5rem;
+    }
+
+    .billet-page {
+        padding: 1rem;
+        margin: 0 0.25rem;
+        min-height: 400px;
+        max-width: calc(100vw - 2rem);
+    }
+
+    .journal-navigation {
+        margin-top: 1rem;
+        padding: 0.5rem 0;
+    }
+
+    .nav-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
     }
 }
