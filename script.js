@@ -19,7 +19,7 @@ const SITE_CONTENT = {
 
     // DATES DE RÉVÉLATION DES BRIEFINGS
     briefingRevealDate_Logement: '2025-11-05T09:00:00', // Correspond à NOTIF_001
-    briefingRevealDate_Dimanche: '2025-11-10T11:00:00', // Correspond à NOTIF_003 (Email 4)
+    briefingRevealDate_Dimanche: '2025-11-10T09:00:00', // Correspond à NOTIF_003 (Email 4)
     briefingRevealDate_Nourriture: '2025-11-14T09:00:00', // Correspond à NOTIF_005
     feedbackRevealDate: '2025-11-12T09:00:00', // Date de révélation des boutons feedback
 
