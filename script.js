@@ -20,7 +20,7 @@ const SITE_CONTENT = {
     // DATES DE RÉVÉLATION DES BRIEFINGS
     briefingRevealDate_Logement: '2025-11-05T09:00:00', // Correspond à NOTIF_001
     briefingRevealDate_Dimanche: '2025-11-10T09:00:00', // Correspond à NOTIF_003 (Email 4)
-    briefingRevealDate_Nourriture: '2025-11-14T09:00:00', // Correspond à NOTIF_005
+    briefingRevealDate_Nourriture: '2025-11-13T09:00:00', // Correspond à NOTIF_005
     feedbackRevealDate: '2025-11-12T09:00:00', // Date de révélation des boutons feedback
 
     notifications: [
@@ -91,7 +91,7 @@ const SITE_CONTENT = {
     briefingSamedi_State2: `Logement confirmé.\n\nÉquipement requis : Pensez à vos affaires de toilettes et à un pyjama confortable (ou non, c'est très ok aussi).`, // Après 5 Nov
     
     // MIS À JOUR AVEC VOTRE NOUVEAU TEXTE
-    briefingSamedi_State3: `Ceci est votre briefing officiel pour le Jour J. La journée de samedi est dédiée à la Déconnexion et à l'Installation.\nL'objectif : Basculer du mode "routine" au mode "Évasion". Le Chef de Bord gère l'intégralité de la logistique (itinéraire, restauration, timing).\nVotre seule mission est de vous préparer pour l'expérience "Prestige" de ce soir.\n\nVotre équipement requis pour la soirée :\n\nTenue "Cocon Chic" :\nUne tenue élégante mais parfaitement décontractée. L'objectif est d'être à l'aise pour une soirée gastronomique privée, où le confort prime sur le formel.\n\nÉtat d'esprit "Offline" :\nIl est fortement recommandé de mettre les notifications non essentielles en sourdine. Le portail "Nathan Inc." sera votre seule source d'information.\n\nPréparation Sensorielle :\nLe "Service Ambiance Sonore" s'activera automatiquement sur ce portail à 20h00. Préparez-vous pour une immersion complète.`, // Après 14 Nov
+    briefingSamedi_State3: `Ceci est votre briefing officiel pour le Jour J. La journée de samedi est dédiée à la Déconnexion et à l'Installation.\nL'objectif : Basculer du mode "routine" au mode "Évasion". Le Chef de Bord gère l'intégralité de la logistique (itinéraire, restauration, timing).\nVotre seule mission est de vous préparer pour l'expérience "Prestige" de ce soir.\n\nVotre équipement requis pour la soirée :\n\nTenue "Cocon Chic" :\nUne tenue élégante mais parfaitement décontractée. L'objectif est d'être à l'aise pour une soirée intime, où le confort prime sur le formel.\n\nÉtat d'esprit "Offline" :\nIl est fortement recommandé de mettre les notifications non essentielles en sourdine. Le portail "Nathan Inc." sera votre seule source d'information.\n\nPréparation Sensorielle :\nLe "Service Ambiance Sonore" s'activera automatiquement sur ce portail à 20h00. Préparez-vous pour une immersion complète.`, // Après 13 Nov
     
     // Logique à 2 états pour le dimanche
     briefingTitleDimanche_Pre: `Dimanche : [...]`,
@@ -163,11 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const now = new Date();
         const feedbackRevealDate = new Date(SITE_CONTENT.feedbackRevealDate);
         if (now < feedbackRevealDate) {
-            // Cacher le champ "Devinez la destination"
-            const guessInput = document.getElementById('guess');
-            if (guessInput) {
-                guessInput.closest('.form-group').style.display = 'none';
-            }
             // Cacher les icônes feedback
             const feedbackIcons = [
                 document.getElementById('nav-feedback-1'),

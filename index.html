@@ -53,10 +53,6 @@
                     <input type="text" id="arrivee" value="???" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="guess">Devinez la destination</label>
-                    <input type="text" id="guess" placeholder="Votre supposition...">
-                </div>
-                <div class="form-group">
                     <label for="date-depart">Date de départ</label>
                     <input type="text" id="date-depart" value="15/11/2025" disabled>
                 </div>
@@ -194,17 +190,37 @@
                         <section class="jukebox-section">
                             <h2 id="jukebox-title"></h2>
                             <p id="jukebox-desc" class="section-description"></p>
-                            
-                            <iframe
-                                class="spotify-jukebox"
-                                style="border-radius:12px"
-                                src="https://open.spotify.com/embed/playlist/0CFpm4Iy7QoDlJdH8vwYJ9?utm_source=generator&theme=0"
-                                width="100%"
-                                height="352"
-                                frameBorder="0"
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                loading="lazy">
-                            </iframe>
+
+                            <div class="music-widget">
+                                <div class="widget-overlay">
+                                    <div class="sound-waves">
+                                        <div class="wave"></div>
+                                        <div class="wave"></div>
+                                        <div class="wave"></div>
+                                        <div class="wave"></div>
+                                        <div class="wave"></div>
+                                    </div>
+                                    <div class="controls">
+                                        <button class="control-btn play-btn" id="play-btn">▶️</button>
+                                        <button class="control-btn pause-btn" id="pause-btn" style="display:none;">⏸️</button>
+                                        <button class="control-btn volume-btn">🔊</button>
+                                    </div>
+                                    <div class="track-info">
+                                        <span class="track-title">Playlist Ambiance</span>
+                                        <span class="track-artist">Nathan Inc. Curated</span>
+                                    </div>
+                                </div>
+                                <iframe
+                                    class="spotify-jukebox"
+                                    style="border-radius:12px"
+                                    src="https://open.spotify.com/embed/playlist/0CFpm4Iy7QoDlJdH8vwYJ9?utm_source=generator&theme=0"
+                                    width="100%"
+                                    height="352"
+                                    frameBorder="0"
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                    loading="lazy">
+                                </iframe>
+                            </div>
                         </section>
                         
                         <section class="billets-section">
