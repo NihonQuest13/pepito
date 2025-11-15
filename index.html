@@ -186,127 +186,175 @@
                     
                     <section id="phase-2-content" style="display: none;">
                         <div class="status-badge active-trip">VOYAGE EN COURS</div>
-                        
-                        <section class="jukebox-section">
-                            <h2 id="jukebox-title"></h2>
-                            <p id="jukebox-desc" class="section-description"></p>
 
-                            <div class="music-widget">
-                                <div class="widget-overlay">
-                                    <div class="sound-waves">
-                                        <div class="wave"></div>
-                                        <div class="wave"></div>
-                                        <div class="wave"></div>
-                                        <div class="wave"></div>
-                                        <div class="wave"></div>
-                                    </div>
-                                    <div class="controls">
-                                        <button class="control-btn play-btn" id="play-btn">▶️</button>
-                                        <button class="control-btn pause-btn" id="pause-btn" style="display:none;">⏸️</button>
-                                        <button class="control-btn volume-btn">🔊</button>
-                                    </div>
-                                    <div class="track-info">
-                                        <span class="track-title">Playlist Ambiance</span>
-                                        <span class="track-artist">Nathan Inc. Curated</span>
-                                    </div>
-                                </div>
-                                <iframe
-                                    class="spotify-jukebox"
-                                    style="border-radius:12px"
-                                    src="https://open.spotify.com/embed/playlist/0CFpm4Iy7QoDlJdH8vwYJ9?utm_source=generator&theme=0"
-                                    width="100%"
-                                    height="352"
-                                    frameBorder="0"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                    loading="lazy">
-                                </iframe>
-                            </div>
-                        </section>
-                        
+                        <!-- Section Billets de Train -->
                         <section class="billets-section">
-                            <h2 id="billets-title"></h2>
-                            <p id="billets-desc" class="section-description"></p>
+                            <h2>// Vos Billets de Train</h2>
+                            <p class="section-description">Chaque billet se révèle au fur et à mesure de votre voyage. Compostez-le pour découvrir les détails de l'étape.</p>
 
-                            <div class="journal-container">
-                                <div class="journal-pages">
-                                    <div class="billet-page active" id="billet-1">
-                                        <div class="billet-stamp">COMPOSTÉ</div>
-                                        <div class="billet-header"><span class="billet-icon">🎟️</span><h3 id="billet-1-title"></h3></div>
-                                        <div class="billet-body">
-                                            <div class="billet-info"><strong>Trajet</strong><span id="billet-1-trajet"></span></div>
-                                            <div class="billet-info"><strong>Motif</strong><span id="billet-1-motif"></span></div>
+                            <div class="container-cards-ticket">
+                                <!-- Billet 1 -->
+                                <div class="ticket-flip-container">
+                                    <div id="ticket-1" class="ticket-flipper">
+                                        <div class="ticket-front card-ticket ticket-hidden">
+                                            <div class="separator">
+                                                <div class="span-lines"></div>
+                                            </div>
+                                            <div class="content-ticket">
+                                                <div class="content-data">
+                                                    <div class="data-flex">
+                                                        <div class="data">
+                                                            <span class="title">Départ</span>
+                                                            <span class="subtitle" id="ticket-1-depart">Bordeaux</span>
+                                                        </div>
+                                                        <div class="data">
+                                                            <span class="title">Destination</span>
+                                                            <span class="subtitle" id="ticket-1-destination">???</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="data-flex-col">
+                                                        <div class="data">
+                                                            <span class="title">Trajet</span>
+                                                            <span class="subtitle" id="ticket-1-trajet">À révéler</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container-icons">
+                                                    <div class="icon">🚂</div>
+                                                    <button class="explanation-btn" data-ticket="1">Composter le billet</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="billet-narrative" id="billet-1-recit" style="display: none;">
-                                            <p id="billet-1-recit-text"></p>
-                                            <a id="billet-1-map-btn" href="#" target="_blank" class="cta-button map-button">📍 Afficher la destination</a>
-                                        </div>
-                                        <div class="billet-cta">
-                                            <button id="read-recit-1" class="cta-button read-button">Lire le récit</button>
-                                            <button id="composter-1" class="cta-button billet-button">Composter le billet</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="billet-page disabled" id="billet-2">
-                                        <div class="billet-stamp">COMPOSTÉ</div>
-                                        <div class="billet-header"><span class="billet-icon">🎟️</span><h3 id="billet-2-title"></h3></div>
-                                        <div class="billet-body">
-                                            <div class="billet-info"><strong>Trajet</strong><span id="billet-2-trajet"></span></div>
-                                            <div class="billet-info"><strong>Motif</strong><span id="billet-2-motif"></span></div>
-                                        </div>
-                                        <div class="billet-narrative" id="billet-2-recit" style="display: none;">
-                                            <p id="billet-2-recit-text"></p>
-                                            <a id="billet-2-map-btn" href="#" target="_blank" class="cta-button map-button">📍 Afficher la destination</a>
-                                        </div>
-                                        <div class="billet-cta">
-                                            <button id="read-recit-2" class="cta-button read-button" disabled>Lire le récit</button>
-                                            <button id="composter-2" class="cta-button billet-button" disabled>Composter le billet</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="billet-page disabled" id="billet-3">
-                                        <div class="billet-stamp">COMPOSTÉ</div>
-                                        <div class="billet-header"><span class="billet-icon">🎟️</span><h3 id="billet-3-title"></h3></div>
-                                        <div class="billet-body">
-                                            <div class="billet-info"><strong>Trajet</strong><span id="billet-3-trajet"></span></div>
-                                            <div class="billet-info"><strong>Motif</strong><span id="billet-3-motif"></span></div>
-                                        </div>
-                                        <div class="billet-narrative" id="billet-3-recit" style="display: none;">
-                                            <p id="billet-3-recit-text"></p>
-                                            <a id="billet-3-map-btn" href="#" target="_blank" class="cta-button map-button">📍 Afficher la destination</a>
-                                        </div>
-                                        <div class="billet-cta">
-                                            <button id="read-recit-3" class="cta-button read-button" disabled>Lire le récit</button>
-                                            <button id="composter-3" class="cta-button billet-button" disabled>Composter le billet</button>
-                                        </div>
-                                    </div>
-
-                                    <div class="billet-page disabled" id="billet-4">
-                                        <div class="billet-stamp">COMPOSTÉ</div>
-                                        <div class="billet-header"><span class="billet-icon">🎟️</span><h3 id="billet-4-title"></h3></div>
-                                        <div class="billet-body">
-                                            <div class="billet-info"><strong>Trajet</strong><span id="billet-4-trajet"></span></div>
-                                            <div class="billet-info"><strong>Motif</strong><span id="billet-4-motif"></span></div>
-                                        </div>
-                                        <div class="billet-narrative" id="billet-4-recit" style="display: none;">
-                                            <p id="billet-4-recit-text"></p>
-                                            <a id="billet-4-map-btn" href="#" target="_blank" class="cta-button map-button">📍 Afficher la destination</a>
-                                        </div>
-                                        <div class="billet-cta">
-                                            <button id="read-recit-4" class="cta-button read-button" disabled>Lire le récit</button>
-                                            <button id="composter-4" class="cta-button billet-button">Terminer l'exploration</button>
+                                        <div class="ticket-back">
+                                            <div class="ticket-back-content" id="ticket-1-explanation">
+                                                Explication du billet 1
+                                            </div>
+                                            <button class="back-btn" data-ticket="1">Retour au billet</button>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="journal-navigation">
-                                    <button id="prev-page" class="nav-button" disabled>&larr; Précédent</button>
-                                    <div class="page-indicators">
-                                        <span class="indicator active" data-page="1"></span>
-                                        <span class="indicator" data-page="2"></span>
-                                        <span class="indicator" data-page="3"></span>
-                                        <span class="indicator" data-page="4"></span>
+                                <!-- Billet 2 -->
+                                <div class="ticket-flip-container">
+                                    <div id="ticket-2" class="ticket-flipper">
+                                        <div class="ticket-front card-ticket ticket-hidden">
+                                            <div class="separator">
+                                                <div class="span-lines"></div>
+                                            </div>
+                                            <div class="content-ticket">
+                                                <div class="content-data">
+                                                    <div class="data-flex">
+                                                        <div class="data">
+                                                            <span class="title">Départ</span>
+                                                            <span class="subtitle" id="ticket-2-depart">???</span>
+                                                        </div>
+                                                        <div class="data">
+                                                            <span class="title">Destination</span>
+                                                            <span class="subtitle" id="ticket-2-destination">???</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="data-flex-col">
+                                                        <div class="data">
+                                                            <span class="title">Trajet</span>
+                                                            <span class="subtitle" id="ticket-2-trajet">À révéler</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container-icons">
+                                                    <div class="icon">🚂</div>
+                                                    <button class="explanation-btn" data-ticket="2">Composter le billet</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ticket-back">
+                                            <div class="ticket-back-content" id="ticket-2-explanation">
+                                                Explication du billet 2
+                                            </div>
+                                            <button class="back-btn" data-ticket="2">Retour au billet</button>
+                                        </div>
                                     </div>
-                                    <button id="next-page" class="nav-button" disabled>&rarr; Suivant</button>
+                                </div>
+
+                                <!-- Billet 3 -->
+                                <div class="ticket-flip-container">
+                                    <div id="ticket-3" class="ticket-flipper">
+                                        <div class="ticket-front card-ticket ticket-hidden">
+                                            <div class="separator">
+                                                <div class="span-lines"></div>
+                                            </div>
+                                            <div class="content-ticket">
+                                                <div class="content-data">
+                                                    <div class="data-flex">
+                                                        <div class="data">
+                                                            <span class="title">Départ</span>
+                                                            <span class="subtitle" id="ticket-3-depart">???</span>
+                                                        </div>
+                                                        <div class_=("data")>
+                                                            <span class="title">Destination</span>
+                                                            <span class="subtitle" id="ticket-3-destination">???</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="data-flex-col">
+                                                        <div class="data">
+                                                            <span class="title">Trajet</span>
+                                                            <span class="subtitle" id="ticket-3-trajet">À révéler</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container-icons">
+                                                    <div class="icon">🚂</div>
+                                                    <button class="explanation-btn" data-ticket="3">Composter le billet</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ticket-back">
+                                            <div class="ticket-back-content" id="ticket-3-explanation">
+                                                Explication du billet 3
+                                            </div>
+                                            <button class="back-btn" data-ticket="3">Retour au billet</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Billet 4 -->
+                                <div class="ticket-flip-container">
+                                    <div id="ticket-4" class="ticket-flipper">
+                                        <div class="ticket-front card-ticket ticket-hidden">
+                                            <div class="separator">
+                                                <div class="span-lines"></div>
+                                            </div>
+                                            <div class="content-ticket">
+                                                <div class="content-data">
+                                                    <div class="data-flex">
+                                                        <div class="data">
+                                                            <span class="title">Départ</span>
+                                                            <span class="subtitle" id="ticket-4-depart">???</span>
+                                                        </div>
+                                                        <div class="data">
+                                                            <span class="title">Destination</span>
+                                                            <span class="subtitle" id="ticket-4-destination">???</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="data-flex-col">
+                                                        <div class="data">
+                                                            <span class="title">Trajet</span>
+                                                            <span class="subtitle" id="ticket-4-trajet">À révéler</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container-icons">
+                                                    <div class="icon">🚂</div>
+                                                    <button class="explanation-btn" data-ticket="4">Composter le billet</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ticket-back">
+                                            <div class="ticket-back-content" id="ticket-4-explanation">
+                                                Explication du billet 4
+                                            </div>
+                                            <button class="back-btn" data-ticket="4">Retour au billet</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -357,6 +405,10 @@
                         </div>
                     </section>
 
+                    <section id="sound-ambiance-section" class="sound-ambiance-section">
+                        <h2>// Ambiance Sonore</h2>
+                        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0CFpm4Iy7QoDlJdH8vwYJ9?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </section>
 
                 </div>
                 
@@ -425,8 +477,11 @@
         </div>
     </div>
 
+    <link rel="stylesheet" href="ticket.css">
     <script>
         document.write('<script src="script.js?v=' + (new Date().getTime()) + '"><\/script>');
     </script>
 </body>
 </html>
+ 
+ <link rel=" stylesheet\ href=\ticket.css\>

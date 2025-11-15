@@ -72,10 +72,10 @@ const SITE_CONTENT = {
             emailSubject: "Confirmation Logistique Finale (Dossier PEPITO)",
             emailBody: `Bonjour M. Pépito,\n\nCeci est la confirmation logistique J-1.\n\nLe service de restauration \"Prestige\" pour la soirée du Samedi 15 est confirmé. Votre statut \"VIP\" est validé.\n\nLe Chef de Bord vous souhaite une excellente préparation finale.\n\nCordialement,\nNathan Inc. Services Premium\n+33770136289 | nathangrondin683@gmail.com`
         },
-        { 
+        {
             id: 'NOTIF_006', // EMAIL 6 (Jour J)
-            revealTimestamp: '2025-11-15T08:00:00',
-            icon: "🚀", 
+            revealTimestamp: '2025-11-15T14:00:00',
+            icon: "🚀",
             siteMessage: "JOUR J : L'Opération 'Évasion' est lancée. Votre portail bascule en 'Mode Voyage'.",
             emailSubject: "JOUR J - Lancement de l'Opération 'Évasion' (Dossier PEPITO)",
             emailBody: `Bonjour M. Pépito,\n\nL'heure H est arrivée. L'Opération 'Évasion' est officiellement lancée.\n\nVotre portail "Nathan Inc." est en train de basculer en "Mode Voyage". De nouvelles fonctionnalités seront déverrouillées au fil de la journée.\n\nVeuillez vous tenir prêt pour les instructions du Chef de Bord.\n\nCordialement,\nNathan Inc. Services Premium\n+33770136289 | nathangrondin683@gmail.com`
@@ -107,28 +107,28 @@ const SITE_CONTENT = {
     billetsTitle: '// Vos Billets',
     billetsDesc: 'Chaque billet est une étape de votre voyage. Compostez-le pour révéler les informations détaillées du point de destination.',
     
-    billet1_Title: "Billet N°1 : Le Point d'Origine (KM 0.0)",
-    billet1_Trajet: 'Gare de La Teste-de-Buch',
+    billet1_Title: "Billet N°1 : Point d'Origine (KM 0.0)",
+    billet1_Trajet: '~ 45-50 minutes (Depuis Andernos-les-Bains)',
     billet1_Motif: "L'origine de l'histoire (1841)",
-    billet1_Recit: "Le Chef de Bord Nathan vous souhaite la bienvenue à l'arrêt N°1. Oubliez tout ce que vous pensez savoir sur le Bassin. Notre voyage ne commence pas sur une plage, mais ici, en 1841, à la plus ancienne gare de France encore en service.\n\nElle n'a pas été construite pour le plaisir, mais pour une seule raison : conquérir une nature hostile et transporter la ressource qui a tout changé.\n\nVotre première mission : Levez les yeux. Imprégnez-vous de l'architecture. C'est le point de départ exact de notre fil rouge.",
+    billet1_Recit: "Le Chef de Bord vous souhaite la bienvenue à l'arrêt N°1. Oubliez tout ce que vous pensez savoir sur le Bassin. Notre voyage commence ici, le 7 juillet 1841, date d'inauguration de la ligne Bordeaux-La Teste. C'est la plus ancienne gare de France encore en service.\n\nPendant 16 ans (jusqu'en 1857), ce fut le terminus absolu. Arcachon n'existait pas encore. L'idée de cette ligne, due à un notaire bordelais nommé Louis Godinet, était de désenclaver ce \"Far West\" aquitain. L'objectif n'était pas le tourisme (les \"bains de mer\" ont eu du mal à démarrer), mais bien de transporter la ressource qui a tout changé.\n\nVotre première mission : Levez les yeux. Imprégnez-vous de l'architecture de ce bâtiment qui a vu arriver les tout premiers voyageurs et qui est le point de départ exact de notre fil rouge.",
     billet1_mapURL: 'https://www.google.com/maps/search/?api=1&query=Gare+de+La+Teste-de-Buch',
 
     billet2_Title: 'Billet N°2 : Le Poumon Économique',
-    billet2_Trajet: 'Forêt Usagère (Pique-nique)',
+    billet2_Trajet: '~ 10-15 minutes',
     billet2_Motif: "La source de l'industrie",
-    billet2_Recit: "Nous sommes maintenant au cœur de la ressource. Cette forêt de pins n'est pas seulement un lieu de balade ; c'est le 'poumon' qui a financé l'intégralité de la ligne de chemin de fer.\n\nC'est pour transporter ce bois, planté pour retenir les dunes, que la gare de La Teste a été construite. Le son, l'odeur... c'est la matière première de notre histoire.\n\nVotre mission : Savourez ce pique-nique. Vous déjeunez littéralement à la source de l'aventure.",
+    billet2_Recit: "Nous sommes maintenant au cœur de la ressource. Cette forêt de pins massive n'est pas naturelle. Elle a été plantée au 19ème siècle sur ordre de Napoléon pour une raison vitale : stabiliser les dunes qui menaçaient d'ensevelir le pays.\n\nCe faisant, ils ont créé le \"poumon\" économique qui a financé l'intégralité de la ligne de chemin de fer. C'est pour transporter à grande échelle le bois de ces pins (pour les traverses de rail, les poteaux de mine) et leur résine (le \"gemmage\") que la gare de La Teste a été construite.\n\nVotre mission : Savourez ce pique-nique. Vous déjeunez littéralement à la source de l'aventure, au milieu de la matière première qui a tout rendu possible.",
     billet2_mapURL: 'https://www.google.com/maps/search/?api=1&query=Forêt+Usagère+de+La+Teste-de-Buch',
 
     billet3_Title: "Billet N°3 : Le Réseau Parallèle",
-    billet3_Trajet: 'Gujan-Mestras (Les 7 Ports)',
+    billet3_Trajet: '~ 15 minutes',
     billet3_Motif: "La capitale de l'ostréiculture",
-    billet3_Recit: "Le rail que nous suivons (celui du bois) n'était pas seul. Pendant qu'il se développait, un autre réseau, plus petit, plus 'gourmand', est né ici : le tramway des huîtres.\n\nNous sommes dans la 'Capitale de l'Ostréiculture'. Chaque cabane que vous voyez faisait partie d'un micro-réseau ferroviaire dédié uniquement au transport des 'perles' du Bassin.\n\nVotre mission : Repérez les anciens rails au sol entre les cabanes. C'est le 'rail gastronomique'.",
+    billet3_Recit: "La ligne Bordeaux-La Teste n'était pas la seule. Gujan, la \"Capitale de l'Ostréiculture\" avec ses 7 ports, avait sa propre histoire ferroviaire.\n\nIci, au Port de Meyran, un autre \"chemin de fer Decauville\" (une petite ligne industrielle à voie étroite) a fonctionné de 1919 à 1935. Sa seule mission : transporter les poteaux de pins de la forêt jusqu'aux barges, qui les emmenaient ensuite vers des cargos à destination de l'Angleterre pour étayer les galeries de mines.\n\nVotre mission : Repérez les anciens rails au sol. Ce n'est pas seulement un \"rail gastronomique\" pour les huîtres, c'est le vestige d'une ligne industrielle secrète, connectée au monde.",
     billet3_mapURL: 'https://www.google.com/maps/search/?api=1&query=Ports+de+Gujan-Mestras',
 
     billet4_Title: 'Billet N°4 (Terminus) : Le Point de Connexion',
-    billet4_Trajet: 'Port du Teich',
+    billet4_Trajet: '~ 10 minutes',
     billet4_Motif: 'La fin de la ligne',
-    billet4_Recit: "Notre exploration s'achève au 'Terminus'. C'est le point de rencontre de tous les éléments de notre histoire : le bois de la forêt, le rail de La Teste et l'eau du Bassin.\n\nLe train ne s'arrêtait pas à la gare ; il s'avançait jusqu'ici, sur le port, pour que le bois soit chargé directement sur les bateaux.\n\nVotre mission finale : Trouvez les rails qui touchent presque l'eau. C'est la fin de la ligne. Le point exact où le passé industriel cède la place à la nature.",
+    billet4_Recit: "Notre exploration s'achève au 'Terminus'. Le Teich était un arrêt crucial sur la ligne originelle de 1841. C'était le point de rencontre de tous les éléments de notre histoire : le bois de la forêt, le rail, et les bateaux de la rivière l'Eyre.\n\nLe train ne s'arrêtait pas à la gare ; il s'avançait jusqu'ici, sur le port, pour que les marchandises (résine, goudron, poteaux de bois) soient chargées directement sur les bateaux.\n\nVotre mission finale : Trouvez les rails qui touchent presque l'eau. C'est la fin de la ligne. Le point de connexion \"Terre-Mer\" exact où le passé industriel cède aujourd'hui la place à la nature.",
     billet4_mapURL: 'https://www.google.com/maps/search/?api=1&query=Port+du+Teich',
     
     // --- Phase 3: Après (Contenu caché) ---
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     pageReservation.style.display = "block";
                     populateContent(1); 
-                    startCountdown("2025-11-15T08:00:00"); // Synchronisé avec l'email 6
+                    startCountdown("2025-11-15T14:00:00"); // Synchronisé avec l'email 6
                     startNotificationEngine(); 
                     setupBilletLogic(); 
                 }
@@ -332,10 +332,15 @@ document.addEventListener("DOMContentLoaded", () => {
         adminBypassButton.addEventListener("click", () => {
             console.log("Admin bypass cliqué.");
             const code = prompt("Entrez le code de dérogation Chef de Bord :");
-            
+
             if (code === SITE_CONTENT.adminBypassCode) {
                 console.log("Code correct. Forçage de la Phase 2.");
-                triggerPhase2Transition(); // Déclencher la transition
+                // Afficher l'ambiance sonore immédiatement pour l'admin
+                const soundAmbianceSection = document.getElementById("sound-ambiance-section");
+                if (soundAmbianceSection) soundAmbianceSection.style.display = "block";
+                triggerPhase2Transition(true); // Déclencher la transition en mode admin
+                setupBilletLogic(); // Initialiser la logique des billets pour l'admin
+                console.log("triggerPhase2Transition et setupBilletLogic appelés depuis admin bypass.");
             } else if (code) { // Si un code a été entré mais incorrect
                 alert("Code incorrect.");
             }
@@ -635,40 +640,12 @@ document.addEventListener("DOMContentLoaded", () => {
             // Remplir Sidebar Promo
             document.getElementById("promo-title").innerText = SITE_CONTENT.promoTitle;
             document.getElementById("promo-desc").innerText = SITE_CONTENT.promoDesc;
-            
-            // Pré-remplir Phase 2 (cachée)
-            document.getElementById("jukebox-title").innerText = SITE_CONTENT.jukeboxTitle;
-            document.getElementById("jukebox-desc").innerText = SITE_CONTENT.jukeboxDesc;
-            document.getElementById("billets-title").innerText = SITE_CONTENT.billetsTitle;
-            document.getElementById("billets-desc").innerText = SITE_CONTENT.billetsDesc; 
-            
-            // Billet 1
-            document.getElementById("billet-1-title").innerText = SITE_CONTENT.billet1_Title;
-            document.getElementById("billet-1-trajet").innerText = SITE_CONTENT.billet1_Trajet;
-            document.getElementById("billet-1-motif").innerText = SITE_CONTENT.billet1_Motif;
-            document.getElementById("billet-1-recit-text").innerText = SITE_CONTENT.billet1_Recit;
-            document.getElementById("billet-1-map-btn").href = SITE_CONTENT.billet1_mapURL;
-            
-            // Billet 2
-            document.getElementById("billet-2-title").innerText = SITE_CONTENT.billet2_Title;
-            document.getElementById("billet-2-trajet").innerText = SITE_CONTENT.billet2_Trajet;
-            document.getElementById("billet-2-motif").innerText = SITE_CONTENT.billet2_Motif;
-            document.getElementById("billet-2-recit-text").innerText = SITE_CONTENT.billet2_Recit;
-            document.getElementById("billet-2-map-btn").href = SITE_CONTENT.billet2_mapURL;
-            
-            // Billet 3
-            document.getElementById("billet-3-title").innerText = SITE_CONTENT.billet3_Title;
-            document.getElementById("billet-3-trajet").innerText = SITE_CONTENT.billet3_Trajet;
-            document.getElementById("billet-3-motif").innerText = SITE_CONTENT.billet3_Motif;
-            document.getElementById("billet-3-recit-text").innerText = SITE_CONTENT.billet3_Recit;
-            document.getElementById("billet-3-map-btn").href = SITE_CONTENT.billet3_mapURL;
-            
-            // Billet 4
-            document.getElementById("billet-4-title").innerText = SITE_CONTENT.billet4_Title;
-            document.getElementById("billet-4-trajet").innerText = SITE_CONTENT.billet4_Trajet;
-            document.getElementById("billet-4-motif").innerText = SITE_CONTENT.billet4_Motif;
-            document.getElementById("billet-4-recit-text").innerText = SITE_CONTENT.billet4_Recit;
-            document.getElementById("billet-4-map-btn").href = SITE_CONTENT.billet4_mapURL;
+
+            // Cacher l'ambiance sonore pendant la phase 1
+            const soundAmbianceSection = document.getElementById("sound-ambiance-section");
+            if (soundAmbianceSection) soundAmbianceSection.style.display = "none";
+
+            // Pré-remplir Phase 2 (cachée) - Removed jukebox and billets sections for cleanup
             
         } else if (phase === 3) {
             // Remplir Phase 3 (Archive)
@@ -681,31 +658,184 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- LOGIQUE DE TRANSITION DE PHASE (Nouvelle fonction) ---
-    
-    function triggerPhase2Transition() {
-        console.log("Transition vers la Phase 2...");
+
+    function triggerPhase2Transition(isAdmin = false) {
+        console.log("Transition vers la Phase 2...", isAdmin ? "(mode admin)" : "");
         if (countdownTimerInterval) clearInterval(countdownTimerInterval); // Arrêter le compteur
-        
+
         const lockedSection = document.getElementById("phase-1-locked");
         const phase2Section = document.getElementById("phase-2-content");
-        
+
         if (lockedSection && phase2Section) {
             // Animation de "retournement" ou fondu
             lockedSection.style.transition = "opacity 0.5s ease-out, transform 0.5s ease";
             lockedSection.style.opacity = "0";
             lockedSection.style.transform = "rotateY(90deg)"; // Effet de flip
-            
+
             setTimeout(() => {
                 lockedSection.style.display = "none";
                 phase2Section.style.display = "block";
-                
+
                 // Positionner les billets pour l'animation d'entrée
                 phase2Section.style.opacity = "0";
-                setTimeout(() => phase2Section.style.opacity = "1", 50);
-                
+                setTimeout(() => {
+                    phase2Section.style.opacity = "1";
+                    
+                    // --- CORRECTION ---
+                    // Les lignes ci-dessous provoquaient une erreur car les ID n'existent plus.
+                    // document.getElementById("jukebox-title").innerText = SITE_CONTENT.jukeboxTitle;
+                    // document.getElementById("jukebox-desc").innerText = SITE_CONTENT.jukeboxDesc;
+                    // --- FIN CORRECTION ---
+
+                    // Afficher l'ambiance sonore
+                    const soundAmbianceSection = document.getElementById("sound-ambiance-section");
+                    if (soundAmbianceSection) soundAmbianceSection.style.display = "block";
+                    
+                    // Initialiser la révélation des billets (cette ligne était bloquée par l'erreur)
+                    initializeTicketReveal(isAdmin);
+                    
+                    // Configurer les boutons d'explication
+                    setupExplanationButtons();
+                    
+                    // Remplir les explications des billets
+                    populateTicketExplanations();
+                }, 50);
+
             }, 500);
         }
     }
+
+    // --- LOGIQUE DE RÉVÉLATION DES BILLETS (Style Apple Wallet) ---
+    let currentRevealedTicket = 0; // Aucun billet révélé au départ
+    const totalTickets = 4;
+
+    function revealTicketDestinations() {
+        const destinations = {
+            1: { depart: "Bordeaux", destination: "La Teste-de-Buch", trajet: "Gare de La Teste-de-Buch" },
+            2: { depart: "La Teste-de-Buch", destination: "Forêt Usagère", trajet: "Pique-nique en forêt" },
+            3: { depart: "Forêt Usagère", destination: "Gujan-Mestras", trajet: "Les 7 Ports" },
+            4: { depart: "Gujan-Mestras", destination: "Port du Teich", trajet: "Terminus" }
+        };
+
+        for (let i = 1; i <= 4; i++) {
+            const dest = destinations[i];
+            if (dest) {
+                const departEl = document.getElementById(`ticket-${i}-depart`);
+                const destinationEl = document.getElementById(`ticket-${i}-destination`);
+                const trajetEl = document.getElementById(`ticket-${i}-trajet`);
+
+                if (departEl) departEl.textContent = dest.depart;
+                if (destinationEl) destinationEl.textContent = dest.destination;
+                if (trajetEl) trajetEl.textContent = dest.trajet;
+            }
+        }
+    }
+
+    function initializeTicketReveal(isAdmin = false) {
+        if (isAdmin) {
+            // Révéler tous les billets immédiatement pour l'admin
+            for (let i = 1; i <= 4; i++) {
+                revealTicket(i);
+            }
+        } else {
+            // Révéler seulement le premier billet au départ
+            revealTicket(1);
+        }
+    }
+
+    function revealTicket(ticketId) {
+        const ticketFlipper = document.getElementById(`ticket-${ticketId}`);
+        if (ticketFlipper) {
+            const ticketFront = ticketFlipper.querySelector('.ticket-front');
+            if (ticketFront && ticketFront.classList.contains('ticket-hidden')) {
+                ticketFront.classList.remove('ticket-hidden');
+                ticketFront.classList.add('ticket-revealed');
+                // Animation d'entrée
+                ticketFront.style.animation = 'ticketReveal 0.8s ease-out forwards';
+                // Peupler la destination pour ce billet
+                populateTicketDestination(ticketId);
+            }
+        }
+    }
+
+    function populateTicketDestination(ticketId) {
+        const destinations = {
+            1: { depart: "Bordeaux", destination: "La Teste-de-Buch", trajet: "Gare de La Teste-de-Buch" },
+            2: { depart: "La Teste-de-Buch", destination: "Forêt Usagère", trajet: "Pique-nique en forêt" },
+            3: { depart: "Forêt Usagère", destination: "Gujan-Mestras", trajet: "Les 7 Ports" },
+            4: { depart: "Gujan-Mestras", destination: "Port du Teich", trajet: "Terminus" }
+        };
+
+        const dest = destinations[ticketId];
+        if (dest) {
+            const departEl = document.getElementById(`ticket-${ticketId}-depart`);
+            const destinationEl = document.getElementById(`ticket-${ticketId}-destination`);
+            const trajetEl = document.getElementById(`ticket-${ticketId}-trajet`);
+
+            if (departEl) departEl.textContent = dest.depart;
+            if (destinationEl) destinationEl.textContent = dest.destination;
+            if (trajetEl) trajetEl.textContent = dest.trajet;
+        }
+    }
+
+    // Gestionnaire pour les boutons "Expliquer la destination"
+    function setupExplanationButtons() {
+        const explanationButtons = document.querySelectorAll('.explanation-btn');
+        explanationButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const ticketId = e.target.getAttribute('data-ticket');
+                console.log('Bouton explication cliqué pour ticket:', ticketId);
+                flipTicket(ticketId);
+            });
+        });
+
+        // Gestionnaire pour les boutons "Retour au billet"
+        const backButtons = document.querySelectorAll('.back-btn');
+        backButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const ticketId = parseInt(e.target.getAttribute('data-ticket'));
+                console.log('Bouton retour cliqué pour ticket:', ticketId);
+                flipTicket(ticketId);
+                // Révéler le prochain billet après retour
+                if (ticketId < 4) {
+                    setTimeout(() => {
+                        revealTicket(ticketId + 1);
+                    }, 500); // Petit délai pour l'animation
+                }
+            });
+        });
+    }
+
+    function flipTicket(ticketId) {
+        const ticketFlipper = document.getElementById(`ticket-${ticketId}`);
+        if (ticketFlipper) {
+            ticketFlipper.classList.toggle('flipped');
+        }
+    }
+
+    // Fonction pour définir le contenu des explications
+    function populateTicketExplanations() {
+        const explanations = {
+            1: SITE_CONTENT.billet1_Recit,
+            2: SITE_CONTENT.billet2_Recit,
+            3: SITE_CONTENT.billet3_Recit,
+            4: SITE_CONTENT.billet4_Recit
+        };
+
+        for (let i = 1; i <= 4; i++) {
+            const explanationElement = document.getElementById(`ticket-${i}-explanation`);
+            if (explanationElement) {
+                explanationElement.textContent = explanations[i] || "Explication non disponible.";
+            }
+        }
+    }
+
+
+
+    // Appeler setupExplanationButtons au chargement de la phase 2
+    // Sera appelé dans triggerPhase2Transition après l'initialisation
 
     // --- LOGIQUE DU COMPTE À REBOURS ---
     
@@ -742,150 +872,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     // ===============================================
-    // LOGIQUE DE COMPOSTAGE DES BILLETS (Journal horizontal)
+    // LOGIQUE DES BILLETS (Cartes Flip)
     // ===============================================
     function setupBilletLogic() {
-        const billets = [
-            { id: 1, title: SITE_CONTENT.billet1_Title, trajet: SITE_CONTENT.billet1_Trajet, motif: SITE_CONTENT.billet1_Motif, recit: SITE_CONTENT.billet1_Recit },
-            { id: 2, title: SITE_CONTENT.billet2_Title, trajet: SITE_CONTENT.billet2_Trajet, motif: SITE_CONTENT.billet2_Motif, recit: SITE_CONTENT.billet2_Recit },
-            { id: 3, title: SITE_CONTENT.billet3_Title, trajet: SITE_CONTENT.billet3_Trajet, motif: SITE_CONTENT.billet3_Motif, recit: SITE_CONTENT.billet3_Recit },
-            { id: 4, title: SITE_CONTENT.billet4_Title, trajet: SITE_CONTENT.billet4_Trajet, motif: SITE_CONTENT.billet4_Motif, recit: SITE_CONTENT.billet4_Recit }
-        ];
+        console.log("setupBilletLogic() appelée");
 
-        let currentPage = 1;
-        const totalPages = 4;
-        const journalPages = document.querySelector('.journal-pages');
-        const prevBtn = document.getElementById('prev-page');
-        const nextBtn = document.getElementById('next-page');
-        const indicators = document.querySelectorAll('.indicator');
+        // Cette fonction configure les boutons d'explication et de retour
+        // Les billets sont révélés progressivement via initializeTicketReveal()
 
-        // Fonction pour charger le contenu d'un billet
-        function loadBilletContent(billetId) {
-            const billet = billets.find(b => b.id === billetId);
-            if (!billet) return;
-
-            document.getElementById(`billet-${billetId}-title`).textContent = billet.title;
-            document.getElementById(`billet-${billetId}-trajet`).textContent = billet.trajet;
-            document.getElementById(`billet-${billetId}-motif`).textContent = billet.motif;
-            document.getElementById(`billet-${billetId}-recit-text`).textContent = billet.recit;
-        }
-
-        // Charger tous les contenus
-        billets.forEach(billet => loadBilletContent(billet.id));
-
-        // Fonction pour mettre à jour la navigation
-        function updateNavigation() {
-            // Boutons prev/next
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages;
-
-            // Indicateurs
-            indicators.forEach((indicator, index) => {
-                indicator.classList.toggle('active', index + 1 === currentPage);
-            });
-
-            // Pages actives
-            document.querySelectorAll('.billet-page').forEach((page, index) => {
-                page.classList.toggle('active', index + 1 === currentPage);
-            });
-        }
-
-        // Fonction pour naviguer vers une page
-        function goToPage(page) {
-            if (page < 1 || page > totalPages) return;
-            currentPage = page;
-            const translateX = -(page - 1) * 25; // 25% par page
-            journalPages.style.transform = `translateX(${translateX}%)`;
-            updateNavigation();
-        }
-
-        // Événements de navigation
-        prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
-        nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
-
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => goToPage(index + 1));
-        });
-
-        // Gestion des gestes tactiles
-        let startX = 0;
-        let isDragging = false;
-
-        journalPages.addEventListener('touchstart', (e) => {
-            startX = e.touches[0].clientX;
-            isDragging = true;
-        });
-
-        journalPages.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const currentX = e.touches[0].clientX;
-            const diff = startX - currentX;
-            if (Math.abs(diff) > 50) { // Seuil de swipe
-                if (diff > 0 && currentPage < totalPages) {
-                    goToPage(currentPage + 1); // Swipe gauche -> page suivante
-                } else if (diff < 0 && currentPage > 1) {
-                    goToPage(currentPage - 1); // Swipe droite -> page précédente
-                }
-                isDragging = false;
-            }
-        });
-
-        journalPages.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        // Gestion des boutons "Lire le récit"
-        for (let i = 1; i <= 4; i++) {
-            const readBtn = document.getElementById(`read-recit-${i}`);
-            readBtn.addEventListener('click', function() {
-                const recitDiv = document.getElementById(`billet-${i}-recit`);
-                recitDiv.style.display = recitDiv.style.display === 'block' ? 'none' : 'block';
-                readBtn.textContent = recitDiv.style.display === 'block' ? 'Masquer le récit' : 'Lire le récit';
-            });
-        }
-
-        // Gestion des compostages
-        for (let i = 1; i <= 4; i++) {
-            const composterBtn = document.getElementById(`composter-${i}`);
-            composterBtn.addEventListener('click', function() {
-                const billetPage = document.getElementById(`billet-${i}`);
-                const recitDiv = document.getElementById(`billet-${i}-recit`);
-
-                // Révéler le récit si pas déjà visible
-                recitDiv.style.display = 'block';
-
-                // Ajouter la classe "used" pour l'animation du tampon
-                billetPage.classList.add('used');
-
-                // Désactiver le bouton
-                composterBtn.disabled = true;
-                composterBtn.textContent = 'Composté';
-
-                // Activer la page suivante
-                if (i < 4) {
-                    const nextPage = document.getElementById(`billet-${i + 1}`);
-                    nextPage.classList.remove('disabled');
-                    const nextReadBtn = document.getElementById(`read-recit-${i + 1}`);
-                    const nextComposterBtn = document.getElementById(`composter-${i + 1}`);
-                    nextReadBtn.disabled = false;
-                    nextComposterBtn.disabled = false;
-
-                    // Naviguer vers la page suivante après un délai
-                    setTimeout(() => {
-                        goToPage(i + 1);
-                    }, 1500);
-                } else {
-                    // Dernier billet : terminer l'exploration
-                    composterBtn.textContent = 'Terminer l\'exploration';
-                    setTimeout(() => {
-                        triggerPhase3Transition();
-                    }, 2000);
-                }
-            });
-        }
-
-        // Initialiser la navigation
-        updateNavigation();
+        // Les boutons sont déjà configurés via setupExplanationButtons()
+        // Rien d'autre à faire ici pour le moment
     }
 
     // (Fonction placeholder pour la fin)

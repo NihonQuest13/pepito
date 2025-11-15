@@ -733,7 +733,7 @@ h1, h2, h3 {
     line-height: 1.5;
 }
 
-.jukebox-section, .billets-section, .gallery-section, .guestbook-section {
+.gallery-section, .guestbook-section {
     background: var(--blanc);
     padding: 1.5rem;
     border-radius: 8px;
@@ -741,7 +741,7 @@ h1, h2, h3 {
     margin-bottom: 3rem;
 }
 
-.jukebox-section h2, .billets-section h2, .gallery-section h2, .guestbook-section h2 {
+.gallery-section h2, .guestbook-section h2 {
     font-size: 1.2rem;
     letter-spacing: 0.5px;
     color: var(--gris-texte);
@@ -757,274 +757,158 @@ h1, h2, h3 {
 
 
 /* ========================================
-   NOUVEAU: JOURNAL DE VOYAGE (PHASE 2)
+   NOUVEAU: SECTION BILLETS DE TRAIN (PHASE 2)
    ======================================== */
 
-.journal-container {
-    position: relative;
-    overflow: hidden;
+.billets-section {
     background: var(--blanc);
-    border-radius: 12px;
-    box-shadow: var(--shadow-moyenne);
-    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow-subtile);
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.billets-section h2 {
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    color: var(--gris-texte);
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+    margin: 0 0 1rem 0;
+}
+
+/* Conteneur des cartes de billets */
+.container-cards-ticket {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     max-width: 100%;
     margin: 0 auto;
 }
 
-.journal-pages {
-    display: flex;
-    width: 400%; /* 4 pages */
-    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Transition fluide */
-}
-
-.billet-page {
-    flex: 0 0 25%; /* Chaque page prend 25% de la largeur totale */
-    background: var(--blanc);
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: var(--shadow-subtile);
-    margin: 0 0.5rem;
-    position: relative;
-    min-height: 200px;
-    max-width: calc(100vw - 4rem); /* Limiter la largeur maximale */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
-
-/* État actif */
-.billet-page.active {
-    box-shadow: var(--shadow-moyenne);
-    transform: scale(1.02);
-}
-
-/* État désactivé */
-.billet-page.disabled {
-    opacity: 0.6;
+/* État caché des billets */
+.ticket-hidden {
+    opacity: 0;
+    transform: translateY(20px);
     pointer-events: none;
+    transition: all 0.8s ease-out;
+    display: none !important;
 }
 
-.billet-header {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background-color: var(--gris-fond);
-    padding: 1rem 1.5rem;
-    border-radius: 8px 8px 0 0;
-    border-bottom: 2px solid var(--bleu-marine);
-    position: relative;
-    z-index: 10;
+/* État révélé des billets */
+.ticket-revealed {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
-.billet-icon {
-    font-size: 2rem;
-}
-
-.billet-header h3 {
-    margin: 0;
-    font-size: 1.3rem;
-    color: var(--bleu-marine);
-}
-
-.billet-body {
-    padding: 1.5rem 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    flex-grow: 1;
-    position: relative;
-    z-index: 10;
-}
-
-.billet-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.billet-info strong {
-    font-size: 0.9rem;
-    color: var(--gris-texte);
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.billet-info span {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--bleu-marine);
-}
-
-/* Style de l'info-bulle narrative */
-.billet-narrative {
-    padding: 1rem;
-    background-color: var(--gris-fond);
-    border-left: 4px solid var(--bleu-marine);
-    border-radius: 0 8px 8px 0;
-    margin: 1rem 0;
-    animation: fadeIn 0.8s ease;
-    white-space: pre-line;
-    position: relative;
-    z-index: 10;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.billet-narrative p {
-    margin: 0 0 1rem 0;
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-.map-button {
-    background-color: var(--bleu-hover);
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    color: var(--blanc);
-    text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-}
-
-.map-button:hover {
-    background-color: var(--bleu-marine);
-}
-
-.billet-cta {
-    display: flex;
-    gap: 0.75rem;
-    justify-content: center;
-    position: relative;
-    z-index: 10;
-}
-
-.read-button {
-    background-color: var(--gris-texte);
-    flex: 1;
-}
-
-.read-button:hover {
-    background-color: #555;
-}
-
-.billet-button {
-    background-color: #098551;
-    flex: 1;
-    user-select: none;
-}
-
-.billet-button:hover {
-    background-color: #076a41;
-}
-
-.billet-button:disabled {
-    background-color: var(--gris-texte);
-    cursor: not-allowed;
-    transform: none;
-    opacity: 0.8;
-}
-
-/* TAMPON "COMPOSTÉ" 3D */
-@keyframes stamp-animation {
+/* Animation de révélation */
+@keyframes ticketReveal {
     0% {
         opacity: 0;
-        transform: scale(5) rotate(-45deg) translateZ(0);
-        filter: drop-shadow(0 0 0 transparent);
-    }
-    50% {
-        opacity: 0.8;
-        transform: scale(1.2) rotate(-20deg) translateZ(20px);
-        filter: drop-shadow(0 10px 20px rgba(192, 0, 0, 0.5));
+        transform: translateY(20px) scale(0.95);
     }
     100% {
-        opacity: 0.3;
-        transform: scale(1) rotate(-15deg) translateZ(0);
-        filter: drop-shadow(0 5px 10px rgba(192, 0, 0, 0.3));
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
-.billet-stamp {
+/* Effet de flip 3D pour les billets */
+.ticket-flip-container {
+    perspective: 1500px;
+    width: 100%;
+    height: 260px;
+}
+
+.ticket-flipper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.ticket-flipper.flipped {
+    transform: rotateY(180deg);
+}
+
+.ticket-front,
+.ticket-back {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1) rotate(-15deg);
-    font-size: 4rem;
-    font-weight: 900;
-    color: #c00;
-    border: 6px solid #c00;
-    border-radius: 12px;
-    padding: 0.5rem 1.5rem;
-    background: rgba(255, 255, 255, 0.9);
-    opacity: 0;
-    z-index: 5;
-    user-select: none;
-    pointer-events: none;
-    box-shadow: 0 0 20px rgba(192, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 51, 102, 0.15);
+    overflow: hidden;
 }
 
-/* État "utilisé" du billet */
-.billet-page.used .billet-stamp {
-    animation: stamp-animation 1s ease-out 0.3s forwards;
+.ticket-front {
+    background-color: #ffffff;
 }
 
-/* Navigation du journal */
-.journal-navigation {
+.ticket-back {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    transform: rotateY(180deg);
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    margin-top: 2rem;
-    padding: 1rem 0;
-    border-top: 1px solid var(--gris-clair);
+    justify-content: center;
+    padding: 2rem;
+    text-align: left;
 }
 
-.nav-button {
-    background: var(--bleu-marine);
+.ticket-back-content {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--gris-texte);
+    max-width: 100%;
+    width: 100%;
+}
+
+/* Bouton explication */
+.explanation-btn {
+    background-color: var(--bleu-marine);
     color: var(--blanc);
     border: none;
-    padding: 0.75rem 1.5rem;
+    padding: 0.65rem 1.25rem;
     border-radius: 6px;
+    font-family: var(--font-principale);
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    user-select: none;
+    width: 100%;
+    margin-top: 0.75rem;
 }
 
-.nav-button:hover:not(:disabled) {
-    background: var(--bleu-hover);
-    transform: scale(1.05);
+.explanation-btn:hover {
+    background-color: var(--bleu-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 51, 102, 0.2);
 }
 
-.nav-button:disabled {
-    background: var(--gris-clair);
-    color: var(--gris-texte);
-    cursor: not-allowed;
-    transform: none;
-}
-
-.page-indicators {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--gris-clair);
-    transition: all 0.3s ease;
+/* Bouton retour au recto */
+.back-btn {
+    background-color: var(--gris-texte);
+    color: var(--blanc);
+    border: none;
+    padding: 0.65rem 1.25rem;
+    border-radius: 6px;
+    font-family: var(--font-principale);
+    font-size: 0.95rem;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    align-self: center;
 }
 
-.indicator.active {
-    background: var(--bleu-marine);
-    transform: scale(1.2);
-}
-
-.indicator:hover {
-    background: var(--bleu-hover);
+.back-btn:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 
