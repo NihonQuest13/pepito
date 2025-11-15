@@ -155,6 +155,12 @@ const processedNotifIDs = new Set();
 let notificationTimerInterval;
 let countdownTimerInterval;
 
+// --- NOUVEAU: Variables de temps pour la Phase 2 ---
+const jukeboxRevealTime = new Date('2025-11-15T20:00:00'); // Samedi 20h00
+const ticket1RevealTime = new Date('2025-11-16T07:00:00'); // Dimanche 07h00
+let phase2TimerInterval; // Pour gérer les déverrouillages de la Phase 2
+
+
 // Attend que le DOM soit chargé
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -335,9 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (code === SITE_CONTENT.adminBypassCode) {
                 console.log("Code correct. Forçage de la Phase 2.");
-                // Afficher l'ambiance sonore immédiatement pour l'admin
-                const soundAmbianceSection = document.getElementById("sound-ambiance-section");
-                if (soundAmbianceSection) soundAmbianceSection.style.display = "block";
+                // N'affiche plus le jukebox directement, laisse le timer le gérer
                 triggerPhase2Transition(true); // Déclencher la transition en mode admin
                 setupBilletLogic(); // Initialiser la logique des billets pour l'admin
                 console.log("triggerPhase2Transition et setupBilletLogic appelés depuis admin bypass.");
@@ -657,7 +661,62 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- LOGIQUE DE TRANSITION DE PHASE (Nouvelle fonction) ---
+    // --- NOUVEAU: GESTION DES DÉVERROUILLAGES (PHASE 2) ---
+    function checkPhase2Unlocks(isAdmin = false) {
+        const now = new Date();
+        let allUnlocked = true; // Flag pour arrêter le timer
+        
+        // 1. Vérification Jukebox
+        const soundAmbianceSection = document.getElementById("sound-ambiance-section");
+        if (soundAmbianceSection) {
+            if (isAdmin || now >= jukeboxRevealTime) {
+                soundAmbianceSection.style.display = "block";
+            } else {
+                soundAmbianceSection.style.display = "none";
+                allUnlocked = false; // Pas encore l'heure
+            }
+        }
+
+        // 2. Vérification Billet 1
+        const ticketId = 1;
+        const button = document.querySelector(`#ticket-${ticketId} .explanation-btn`);
+        const departEl = document.getElementById(`ticket-${ticketId}-depart`);
+        const destinationEl = document.getElementById(`ticket-${ticketId}-destination`);
+        const trajetEl = document.getElementById(`ticket-${ticketId}-trajet`);
+
+        if (button && departEl && destinationEl && trajetEl) { // S'assurer que les éléments existent
+            if (isAdmin || now >= ticket1RevealTime) {
+                // --- DÉVERROUILLÉ ---
+                if (button.disabled) { // Ne mettre à jour que si nécessaire
+                    populateTicketDestination(ticketId); // Mettre le vrai contenu
+                    button.disabled = false;
+                    button.textContent = "Composter le billet";
+                }
+            } else {
+                // --- VERROUILLÉ ---
+                departEl.textContent = "Bordeaux";
+                destinationEl.textContent = "???";
+                trajetEl.textContent = "VERROUILLÉ";
+                button.disabled = true;
+                // Calcul du temps restant
+                const distance = ticket1RevealTime.getTime() - now.getTime();
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000); // Ajout secondes pour feedback
+                button.textContent = `Disponible dans ${hours}h ${minutes}m ${seconds}s`;
+                allUnlocked = false; // Pas encore l'heure
+            }
+        }
+
+        // 3. Arrêter le timer si tout est déverrouillé
+        if (allUnlocked && phase2TimerInterval) {
+            clearInterval(phase2TimerInterval);
+            phase2TimerInterval = null;
+            console.log("[Phase 2 Timer] Tous les éléments sont déverrouillés. Timer arrêté.");
+        }
+    }
+
+    // --- LOGIQUE DE TRANSITION DE PHASE (Modifiée) ---
 
     function triggerPhase2Transition(isAdmin = false) {
         console.log("Transition vers la Phase 2...", isAdmin ? "(mode admin)" : "");
@@ -681,17 +740,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => {
                     phase2Section.style.opacity = "1";
                     
-                    // --- CORRECTION ---
-                    // Les lignes ci-dessous provoquaient une erreur car les ID n'existent plus.
+                    // --- CORRECTION (laissée commentée) ---
                     // document.getElementById("jukebox-title").innerText = SITE_CONTENT.jukeboxTitle;
                     // document.getElementById("jukebox-desc").innerText = SITE_CONTENT.jukeboxDesc;
-                    // --- FIN CORRECTION ---
 
-                    // Afficher l'ambiance sonore
-                    const soundAmbianceSection = document.getElementById("sound-ambiance-section");
-                    if (soundAmbianceSection) soundAmbianceSection.style.display = "block";
-                    
-                    // Initialiser la révélation des billets (cette ligne était bloquée par l'erreur)
+                    // Initialiser la révélation des billets
                     initializeTicketReveal(isAdmin);
                     
                     // Configurer les boutons d'explication
@@ -699,48 +752,38 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     // Remplir les explications des billets
                     populateTicketExplanations();
+
+                    // Lancer le timer de la Phase 2
+                    if (phase2TimerInterval) clearInterval(phase2TimerInterval); // Clear old timers
+                    checkPhase2Unlocks(isAdmin); // Premier check immédiat
+                    if (!isAdmin) {
+                        phase2TimerInterval = setInterval(() => checkPhase2Unlocks(false), 1000); // Vérifie chaque seconde
+                    }
+
                 }, 50);
 
             }, 500);
         }
     }
 
-    // --- LOGIQUE DE RÉVÉLATION DES BILLETS (Style Apple Wallet) ---
-    let currentRevealedTicket = 0; // Aucun billet révélé au départ
+    // --- LOGIQUE DE RÉVÉLATION DES BILLETS (Modifiée) ---
     const totalTickets = 4;
 
-    function revealTicketDestinations() {
-        const destinations = {
-            1: { depart: "Bordeaux", destination: "La Teste-de-Buch", trajet: "Gare de La Teste-de-Buch" },
-            2: { depart: "La Teste-de-Buch", destination: "Forêt Usagère", trajet: "Pique-nique en forêt" },
-            3: { depart: "Forêt Usagère", destination: "Gujan-Mestras", trajet: "Les 7 Ports" },
-            4: { depart: "Gujan-Mestras", destination: "Port du Teich", trajet: "Terminus" }
-        };
-
-        for (let i = 1; i <= 4; i++) {
-            const dest = destinations[i];
-            if (dest) {
-                const departEl = document.getElementById(`ticket-${i}-depart`);
-                const destinationEl = document.getElementById(`ticket-${i}-destination`);
-                const trajetEl = document.getElementById(`ticket-${i}-trajet`);
-
-                if (departEl) departEl.textContent = dest.depart;
-                if (destinationEl) destinationEl.textContent = dest.destination;
-                if (trajetEl) trajetEl.textContent = dest.trajet;
-            }
-        }
-    }
-
     function initializeTicketReveal(isAdmin = false) {
+        revealTicket(1); // Toujours révéler le conteneur du Billet 1
+
+        // Le check du verrouillage est maintenant géré par checkPhase2Unlocks
+        
+        /*
         if (isAdmin) {
-            // Révéler tous les billets immédiatement pour l'admin
-            for (let i = 1; i <= 4; i++) {
+            // Révéler tous les autres billets immédiatement pour l'admin
+            for (let i = 2; i <= 4; i++) {
                 revealTicket(i);
             }
-        } else {
-            // Révéler seulement le premier billet au départ
-            revealTicket(1);
         }
+        */
+        // Le flux normal (non-admin) est géré par le clic sur "back-btn"
+        // En supprimant le bloc 'if (isAdmin)', l'admin suivra le même flux que l'utilisateur.
     }
 
     function revealTicket(ticketId) {
@@ -752,8 +795,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 ticketFront.classList.add('ticket-revealed');
                 // Animation d'entrée
                 ticketFront.style.animation = 'ticketReveal 0.8s ease-out forwards';
-                // Peupler la destination pour ce billet
-                populateTicketDestination(ticketId);
+                
+                // Si ce n'est PAS le billet 1, peupler les données.
+                // Le billet 1 est géré par checkPhase2Unlocks()
+                if(ticketId > 1) {
+                    populateTicketDestination(ticketId);
+                }
             }
         }
     }
@@ -798,7 +845,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const ticketId = parseInt(e.target.getAttribute('data-ticket'));
                 console.log('Bouton retour cliqué pour ticket:', ticketId);
                 flipTicket(ticketId);
-                // Révéler le prochain billet après retour
+                
+                // Révéler le prochain billet après retour (LOGIQUE DEMANDÉE)
                 if (ticketId < 4) {
                     setTimeout(() => {
                         revealTicket(ticketId + 1);
